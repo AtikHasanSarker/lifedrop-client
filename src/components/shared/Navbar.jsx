@@ -16,9 +16,9 @@ import { MdDashboard } from "react-icons/md";
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-//   const { data: session } = authClient.useSession();
-//   const user = session?.user;
-const user = null;
+  //   const { data: session } = authClient.useSession();
+  //   const user = session?.user;
+  const user = null;
 
   const pathName = usePathname();
   if (pathName.includes("dashboard")) {
@@ -96,8 +96,8 @@ const user = null;
               <Link
                 key={item.title}
                 href={item.href}
-                className={`flex gap-2 items-center font-semibold transition-colors hover:text-[#B91C1C] ${
-                  pathName === item.href ? "text-[#DC2626]" : ""
+                className={`flex gap-2 items-center font-semibold transition-colors hover:text-red-700 ${
+                  pathName === item.href ? "text-red-600" : ""
                 }`}
               >
                 {" "}
@@ -111,8 +111,8 @@ const user = null;
                 <Link
                   key={item.title}
                   href={item.href}
-                  className={`hidden lg:flex gap-2 items-center font-semibold transition-colors hover:text-[#B91C1C] ${
-                    pathName === item.href ? "text-[#DC2626]" : ""
+                  className={`hidden lg:flex gap-2 items-center font-semibold transition-colors hover:text-red-700 ${
+                    pathName === item.href ? "text-red-600" : ""
                   }`}
                 >
                   {<item.icon />}
@@ -123,7 +123,7 @@ const user = null;
 
           {!user && (
             <Link href="/login" className="hidden items-center gap-2 md:flex">
-              <Button className="bg-[#DC2626] text-white hover:bg-[#B91C1C]">
+              <Button className="bg-red-600 text-white hover:bg-red-700">
                 {" "}
                 <FaUserCircle />
                 Login
@@ -201,8 +201,8 @@ const user = null;
                 <li key={item.title}>
                   <Link
                     href={item.href}
-                    className={`flex gap-2 items-center font-semibold transition-colors hover:text-[#B91C1C] ${
-                      pathName === item.href ? "text-[#DC2626]" : ""
+                    className={`flex gap-2 items-center font-semibold transition-colors hover:text-red-700 ${
+                      pathName === item.href ? "text-red-600" : ""
                     }`}
                   >
                     {" "}
@@ -215,8 +215,8 @@ const user = null;
                 <li key={item.title}>
                   <Link
                     href={item.href}
-                    className={`flex gap-2 items-center font-semibold transition-colors hover:text-[#B91C1C] ${
-                      pathName === item.href ? "text-[#DC2626]" : ""
+                    className={`flex gap-2 items-center font-semibold transition-colors hover:text-red-700 ${
+                      pathName === item.href ? "text-red-600" : ""
                     }`}
                   >
                     {" "}
@@ -226,10 +226,15 @@ const user = null;
                 </li>
               ))}
               <li className="mt-4 flex flex-col gap-2 border-t border-separator pt-4">
-                <Link href="#" className="block py-2">
-                  Login
+                <Link
+                  href="#"
+                  className="block py-2 items-center gap-2 md:flex"
+                >
+                  <Button className="w-full bg-red-600 text-white hover:bg-red-700">
+                    <FaUserCircle />
+                    Login
+                  </Button>
                 </Link>
-                <Button className="w-full">Sign Up</Button>
               </li>
             </ul>
           </div>
