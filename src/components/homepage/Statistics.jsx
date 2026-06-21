@@ -32,7 +32,7 @@ const stats = [
 
 export default function Statistics() {
   return (
-    <section className="py-24 bg-[#FFFDFD]">
+    <section className="py-30 bg-[#FFFDFD]">
       <div className="container mx-auto px-6 lg:px-10">
         {/* Heading */}
         <div className="text-center max-w-3xl mx-auto">
@@ -40,9 +40,10 @@ export default function Statistics() {
             Our Impact
           </span>
 
-          <h2 className="mt-6 text-4xl font-bold text-gray-900 lg:text-5xl">
-            Together We Are Saving
-            <span className="text-red-600 mt-1"> Thousands of Lives</span>
+          <h2 className="mt-6 text-4xl font-bold text-gray-900 lg:text-5xl leading-15">
+            <span> Together We Are Saving</span>
+            <br />
+            <span className="text-red-600"> Thousands of Lives</span>
           </h2>
 
           <p className="mt-5 text-gray-500 text-lg">

@@ -92,11 +92,11 @@ export default function Hero() {
               width={700}
               height={700}
               priority
-              className="relative z-10 w-full max-w-[620px] drop-shadow-[0_35px_35px_rgba(220,38,38,0.15)]"
+              className="relative z-10 w-full rounded-3xl max-w-[620px] drop-shadow-[0_35px_35px_rgba(220,38,38,0.15)]"
             />
             {/* Floating Card 1 */}
             <motion.div
-              initial={{ opacity: 0, y: 40 }}
+              initial={{ opacity: 0, y: 50 }}
               animate={{
                 opacity: 1,
                 y: [0, -10, 0],
@@ -105,7 +105,7 @@ export default function Hero() {
                 duration: 4,
                 repeat: Infinity,
               }}
-              className="absolute left-0 top-10 z-20 hidden w-60 rounded-3xl border border-white/40 bg-white/80 p-5 shadow-2xl backdrop-blur-xl lg:block"
+              className="absolute -left-2 top-10 z-20 hidden w-60 rounded-3xl border border-white/40 bg-white/80 p-5 shadow-2xl backdrop-blur-xl lg:block"
             >
               <div className="flex items-center gap-4">
                 <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-red-100">
@@ -131,7 +131,7 @@ export default function Hero() {
                 duration: 5,
                 repeat: Infinity,
               }}
-              className="absolute bottom-16 right-0 z-20 hidden w-64 rounded-3xl border border-white/40 bg-white/80 p-5 shadow-2xl backdrop-blur-xl lg:block"
+              className="absolute bottom-8 right-0 z-20 hidden w-64 rounded-3xl border border-white/40 bg-white/80 p-5 shadow-2xl backdrop-blur-xl lg:block"
             >
               <div className="flex items-center gap-4">
                 <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-green-100">
@@ -152,7 +152,7 @@ export default function Hero() {
 
             {/* Floating Card 3 */}
             <motion.div
-              initial={{ opacity: 0 }}
+              initial={{ opacity: 0.5 }}
               animate={{
                 opacity: 1,
                 y: [-8, 8, -8],
@@ -161,7 +161,7 @@ export default function Hero() {
                 duration: 3,
                 repeat: Infinity,
               }}
-              className="absolute right-16 top-0 z-20 hidden rounded-2xl bg-red-600 px-5 py-4 text-white shadow-xl lg:flex"
+              className="absolute right-16 -top-8 z-20 hidden rounded-2xl bg-red-600 px-5 py-4 text-white shadow-xl lg:flex"
             >
               <div>
                 <h2 className="text-3xl font-bold">98%</h2>
