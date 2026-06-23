@@ -1,0 +1,163 @@
+"use client";
+
+import Link from "next/link";
+import { useState } from "react";
+
+import {
+  Input,
+  Button,
+  Separator,
+  FieldError,
+  Description,
+  InputGroup,
+  Label,
+  TextField,
+  Form,
+} from "@heroui/react";
+
+import {  ArrowRight } from "lucide-react";
+import { FaRegEyeSlash } from "react-icons/fa6";
+import { MdOutlineRemoveRedEye } from "react-icons/md";
+import { FcGoogle } from "react-icons/fc";
+
+export default function LoginForm() {
+  const [isVisible, setIsVisible] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+
+  return (
+    <div className="w-full max-w-[540px] rounded-[32px] border border-white/40 bg-white/80 p-10 shadow-[0_20px_80px_rgba(0,0,0,.08)] backdrop-blur-xl">
+      <h2 className="text-3xl font-bold text-gray-900 text-center">Welcome Back 👋</h2>
+
+      <p className="mt-3 text-gray-500 text-center">Login to continue using LifeDrop.</p>
+
+      <Form className="mt-10 space-y-5">
+        <TextField
+          isRequired
+          name="email"
+          type="email"
+          validate={(value) => {
+            if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value)) {
+              return "Please enter a valid email address";
+            }
+            return null;
+          }}
+        >
+          <Label className="font-semibold">Email</Label>
+          <Input placeholder="john@example.com" />
+          <FieldError />
+        </TextField>
+
+        <TextField
+          isRequired
+          minLength={8}
+          className="w-full max-w-full"
+          name="password"
+          validate={(value) => {
+            if (value.length < 8) {
+              return "Password must be at least 8 characters";
+            }
+            if (!/[A-Z]/.test(value)) {
+              return "Password must contain at least one uppercase letter";
+            }
+            if (!/[0-9]/.test(value)) {
+              return "Password must contain at least one number";
+            }
+            return null;
+          }}
+        >
+          <Label className="font-semibold">Password</Label>
+          <InputGroup>
+            <InputGroup.Input
+              className="w-full max-w-full"
+              type={isVisible ? "text" : "password"}
+              placeholder="Enter your password"
+            />
+            <InputGroup.Suffix className="pr-0">
+              <Button
+                isIconOnly
+                aria-label={isVisible ? "Hide password" : "Show password"}
+                size="sm"
+                variant="ghost"
+                onPress={() => setIsVisible(!isVisible)}
+              >
+                {isVisible ? (
+                  <MdOutlineRemoveRedEye className="size-4" />
+                ) : (
+                  <FaRegEyeSlash className="size-4" />
+                )}
+              </Button>
+            </InputGroup.Suffix>
+          </InputGroup>
+          <Description>
+            Must be at least 8 characters with 1 uppercase and 1 number
+          </Description>
+          <FieldError />
+        </TextField>
+
+        <p className="text-right text-red-600 font-semibold text-sm">
+          Forgot Password?
+        </p>
+
+        <Button
+          color="danger"
+          radius="full"
+          size="lg"
+          className=" h-14
+    w-full
+    bg-gradient-to-r
+    from-red-600
+    to-rose-500
+    text-base
+    font-semibold
+    shadow-lg
+    transition-all
+    duration-300
+    hover:scale-[1.02]
+    hover:shadow-red-300
+  "
+          endContent={<ArrowRight size={18} />}
+        >
+          Login
+        </Button>
+
+        <div className="relative py-2">
+          <Separator />
+
+          <span
+            className="
+      absolute
+      left-1/2
+      top-1/2
+      -translate-x-1/2
+      -translate-y-1/2
+      bg-white
+      px-4
+      text-sm
+      text-gray-400
+    "
+          >
+            OR
+          </span>
+        </div>
+        <Button
+          variant="outline"
+          radius="full"
+          
+          className="w-full font-semibold"
+        >
+          <FcGoogle />
+          Continue with Google
+        </Button>
+        <p className="text-center text-gray-500">
+          Don't have an account?
+          <Link
+            href="/register"
+            className="ml-2 font-semibold text-red-600 hover:text-red-700"
+          >
+            Register Now
+          </Link>
+        </p>
+      </Form>
+    </div>
+  );
+}

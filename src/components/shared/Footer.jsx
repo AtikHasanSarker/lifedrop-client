@@ -21,7 +21,7 @@ export default function Footer() {
     <footer className="relative overflow-hidden bg-[#0F172A] text-gray-300">
       {/* Top Gradient */}
 
-      <div className="h-1 bg-gradient-to-r from-red-600 via-red-500 to-pink-500" />
+      <div className="h-1 bg-linear-to-r from-red-600 via-red-500 to-pink-500" />
 
       {/* Blur */}
 
@@ -35,10 +35,15 @@ export default function Footer() {
 
           <div className="lg:col-span-2">
             <div>
-                <Image src="/public/images/footer-logo.png" alt="logo" width={100} height={100} />
+              <Image
+                src="/footer-logo.png"
+                alt="logo"
+                width={250}
+                height={100}
+              />
             </div>
 
-            <p className="mt-6 max-w-md leading-8 text-gray-400">
+            <p className="mt-6 max-w-md text-sm text-gray-400">
               LifeDrop is a modern blood donation platform that connects
               voluntary blood donors with patients in need, helping save lives
               through technology and community.
@@ -62,7 +67,7 @@ export default function Footer() {
           {/* Links */}
 
           <div>
-            <h3 className="mb-5 text-lg font-bold text-white">Quick Links</h3>
+            <h3 className="mb-5 text-2xl font-bold text-white">Quick Links</h3>
 
             <div className="flex flex-col gap-4">
               <Link href="/">Home</Link>
@@ -75,7 +80,7 @@ export default function Footer() {
           {/* Resources */}
 
           <div>
-            <h3 className="mb-5 text-lg font-bold text-white">Resources</h3>
+            <h3 className="mb-5 text-2xl font-bold text-white">Resources</h3>
             <div className="flex flex-col gap-4">
               <Link href="/faq">FAQ</Link>
               <Link href="/privacy-policy">Privacy Policy</Link>
@@ -87,7 +92,7 @@ export default function Footer() {
           {/* Contact */}
 
           <div>
-            <h3 className="mb-5 text-lg font-bold text-white">Contact</h3>
+            <h3 className="mb-5 text-2xl font-bold text-white">Contact</h3>
 
             <div className="space-y-5">
               <div className="flex items-center gap-3">

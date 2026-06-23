@@ -8,7 +8,7 @@ export default function BecomeDonor() {
   return (
     <section className="relative overflow-hidden py-24">
       {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-r from-red-700 via-red-600 to-rose-500" />
+      <div className="absolute inset-0 bg-linear-to-r from-red-700 via-red-600 to-rose-500" />
 
       {/* Blur */}
       <div className="absolute -left-24 -top-24 h-72 w-72 rounded-full bg-white/10 blur-3xl" />
