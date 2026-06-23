@@ -24,14 +24,13 @@ export default function RootLayout({ children }) {
       className={`${poppins.className} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-background text-foreground">
-        {/* <NextThemeProvider>
-          <TitleUpdater /> */}
+        {/* <NextThemeProvider> */}
+          {/* <TitleUpdater /> */}
           <Navbar />
           {children}
           <Footer />
           <Toaster />
         {/* </NextThemeProvider> */}
-
       </body>
     </html>
   );

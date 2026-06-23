@@ -1,5 +1,6 @@
 "use client";
 
+import { authClient } from "@/lib/auth-client";
 // import { authClient } from "@/lib/auth-client";
 import { Avatar, Button, Dropdown, Label } from "@heroui/react";
 import Image from "next/image";
@@ -12,13 +13,14 @@ import { FaHome, FaUserCircle } from "react-icons/fa";
 import { IoSearch } from "react-icons/io5";
 import { LiaDonateSolid } from "react-icons/lia";
 import { MdDashboard } from "react-icons/md";
+// import { ThemeToggle } from "../ui/ThemeToggle";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  //   const { data: session } = authClient.useSession();
-  //   const user = session?.user;
-  const user = null;
+    const { data: session } = authClient.useSession();
+    const user = session?.user;
+
 
   const pathName = usePathname();
   if (pathName.includes("dashboard")) {
@@ -120,6 +122,8 @@ const Navbar = () => {
                 </Link>
               ))}
           </div>
+
+          {/* <ThemeToggle /> */}
 
           {!user && (
             <Link href="/login" className="hidden items-center gap-2 md:flex">
