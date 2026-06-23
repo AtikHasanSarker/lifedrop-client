@@ -25,7 +25,7 @@ export default function LoginPage() {
               </p>
 
             <Image
-              src="/images/login.jpg"
+              src="/images/login.png"
               alt="Login Illustration"
               width={200}
               height={200}

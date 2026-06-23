@@ -19,10 +19,32 @@ import {  ArrowRight } from "lucide-react";
 import { FaRegEyeSlash } from "react-icons/fa6";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
 import { FcGoogle } from "react-icons/fc";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
+import { authClient } from "@/lib/auth-client";
 
 export default function LoginForm() {
+  const router = useRouter();
   const [isVisible, setIsVisible] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
+  
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const user = Object.fromEntries(formData.entries());
+    const { data, error } = await authClient.signIn.email({
+      email: user.email,
+      password: user.password,
+    });
+    console.log(data);
+
+    if (error) {
+      toast.error("Login failed! Please check your credentials.");
+    } else {
+      toast.success("Login successful! Redirecting...");
+      router.push("/");
+    }
+  };
+
 
   return (
     <div className="w-full max-w-[540px] rounded-[32px] border border-white/40 bg-white/80 p-10 shadow-[0_20px_80px_rgba(0,0,0,.08)] backdrop-blur-xl">
@@ -30,7 +52,7 @@ export default function LoginForm() {
 
       <p className="mt-3 text-gray-500 text-center">Login to continue using LifeDrop.</p>
 
-      <Form className="mt-10 space-y-5">
+      <Form onSubmit={onSubmit} className="mt-10 space-y-4">
         <TextField
           isRequired
           name="email"
@@ -99,6 +121,7 @@ export default function LoginForm() {
         </p>
 
         <Button
+        type="submit"
           color="danger"
           radius="full"
           size="lg"
@@ -142,8 +165,7 @@ export default function LoginForm() {
         <Button
           variant="outline"
           radius="full"
-          
-          className="w-full font-semibold"
+          className="h-14 w-full font-semibold"
         >
           <FcGoogle />
           Continue with Google
@@ -151,7 +173,7 @@ export default function LoginForm() {
         <p className="text-center text-gray-500">
           Don't have an account?
           <Link
-            href="/register"
+            href="/signup"
             className="ml-2 font-semibold text-red-600 hover:text-red-700"
           >
             Register Now
