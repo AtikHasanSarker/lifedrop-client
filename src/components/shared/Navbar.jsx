@@ -42,8 +42,7 @@ const Navbar = () => {
     await authClient.signOut();
   };
   return (
-    <div>
-      <nav className="sticky top-0 z-40 w-full border-b border-separator bg-background/70 backdrop-blur-lg">
+    <nav className="sticky top-0 z-40 w-full border-b border-separator bg-background/70 backdrop-blur-lg">
         <header className="mx-auto flex h-16 max-w-7xl items-center justify-between px-2">
           <div className="flex items-center gap-4">
             <button
@@ -239,7 +238,6 @@ const Navbar = () => {
           </div>
         )}
       </nav>
-    </div>
   );
 };
 

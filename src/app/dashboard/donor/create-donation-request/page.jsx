@@ -1,6 +1,5 @@
 "use client";
 import { districts, districtUpazilas } from "@/app/data/DistrictUpazilas";
-import Input from "@/components/ui/Input";
 import Select from "@/components/ui/Select";
 import { authClient } from "@/lib/auth-client";
 import {
@@ -29,14 +28,17 @@ export default function CreateDonationRequest() {
     requestData.userId = user?.id;
     requestData.status = "pending";
 
-     const res = await fetch(`http://localhost:5000/donation-requests`, {
-       method: "POST",
-       headers: {
-         "content-type": "application/json",
-         //  authorization: `Bearer ${tokenData?.token}`,
+     const res = await fetch(
+       `${process.env.NEXT_PUBLIC_SERVER_URL}/donation-requests`,
+       {
+         method: "POST",
+         headers: {
+           "content-type": "application/json",
+           //  authorization: `Bearer ${tokenData?.token}`,
+         },
+         body: JSON.stringify(requestData),
        },
-       body: JSON.stringify(requestData),
-     });
+     );
      const data = await res.json();
      console.log(data);
 
