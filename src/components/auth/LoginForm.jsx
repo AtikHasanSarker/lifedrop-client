@@ -35,10 +35,9 @@ export default function LoginForm() {
       email: user.email,
       password: user.password,
     });
-    console.log(data);
 
     if (error) {
-      toast.error("Login failed! Please check your credentials.");
+      toast.error("Login failed! Email or password is incorrect.");
     } else {
       toast.success("Login successful! Redirecting...");
       router.push("/");
@@ -143,33 +142,6 @@ export default function LoginForm() {
           Login
         </Button>
 
-        <div className="relative py-2">
-          <Separator />
-
-          <span
-            className="
-      absolute
-      left-1/2
-      top-1/2
-      -translate-x-1/2
-      -translate-y-1/2
-      bg-white
-      px-4
-      text-sm
-      text-gray-400
-    "
-          >
-            OR
-          </span>
-        </div>
-        <Button
-          variant="outline"
-          radius="full"
-          className="h-14 w-full font-semibold"
-        >
-          <FcGoogle />
-          Continue with Google
-        </Button>
         <p className="text-center text-gray-500">
           Don't have an account?
           <Link

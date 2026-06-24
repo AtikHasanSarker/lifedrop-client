@@ -1,26 +1,23 @@
 "use client";
-
 import { authClient } from "@/lib/auth-client";
-// import { authClient } from "@/lib/auth-client";
 import { Avatar, Button, Dropdown, Label } from "@heroui/react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { useState } from "react";
-import { BiLogOut, BiSolidDonateBlood } from "react-icons/bi";
+import { BiSolidDonateBlood } from "react-icons/bi";
 import { CgProfile } from "react-icons/cg";
 import { FaHome, FaUserCircle } from "react-icons/fa";
 import { IoSearch } from "react-icons/io5";
 import { LiaDonateSolid } from "react-icons/lia";
+import { LuLogOut } from "react-icons/lu";
 import { MdDashboard } from "react-icons/md";
-// import { ThemeToggle } from "../ui/ThemeToggle";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     const { data: session } = authClient.useSession();
     const user = session?.user;
-
 
   const pathName = usePathname();
   if (pathName.includes("dashboard")) {
@@ -123,8 +120,6 @@ const Navbar = () => {
               ))}
           </div>
 
-          {/* <ThemeToggle /> */}
-
           {!user && (
             <Link href="/login" className="hidden items-center gap-2 md:flex">
               <Button className="bg-red-600 text-white hover:bg-red-700">
@@ -189,7 +184,7 @@ const Navbar = () => {
                       variant="danger"
                       onClick={handleSignOut}
                     >
-                      <BiLogOut />
+                      <LuLogOut className="text-red-500" />
                       <Label>Logout</Label>
                     </Dropdown.Item>
                   </Dropdown.Menu>

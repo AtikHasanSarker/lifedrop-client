@@ -4,7 +4,6 @@ import Navbar from "@/components/shared/Navbar";
 import Footer from "@/components/shared/Footer";
 import { Toaster } from "react-hot-toast";
 // import TitleUpdater from "@/components/shared/TitleUpdater";
-// import NextThemeProvider from "@/providers/NextThemeProvider";
 
 const poppins = Poppins({
   weight: "400",
@@ -24,13 +23,11 @@ export default function RootLayout({ children }) {
       className={`${poppins.className} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-background text-foreground">
-        {/* <NextThemeProvider> */}
           {/* <TitleUpdater /> */}
           <Navbar />
           {children}
           <Footer />
           <Toaster />
-        {/* </NextThemeProvider> */}
       </body>
     </html>
   );

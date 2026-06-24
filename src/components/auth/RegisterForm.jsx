@@ -13,6 +13,20 @@ import { useRouter } from "next/navigation";
 export default function RegisterForm() {
   const router = useRouter();
   const [selectedDistrict, setSelectedDistrict] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState(null);
+
+  const handlePasswordChange = (e) => {
+    const value = e.target.value;
+    setConfirmPassword(value);
+
+    if (value !== password) {
+      setError("Passwords do not match");
+      return;
+    }
+    setError("");
+  };
 
  const bloodGroups = [
     { value: "A+", label: "A+" },
@@ -25,12 +39,14 @@ export default function RegisterForm() {
     { value: "O-", label: "O-" },
   ];
   
-
   const onSubmit = async (e) => {
     e.preventDefault();
+    if(password !== confirmPassword){
+      return
+    }
+
     const formData = new FormData(e.currentTarget);
     const user = Object.fromEntries(formData.entries());
-    console.log(user);
 
     const { data, error } = await authClient.signUp.email({
       name: user.name,
@@ -56,8 +72,6 @@ export default function RegisterForm() {
 
   return (
     <div className="w-full max-w-2xl rounded-[32px] border border-red-100 bg-white/90 p-8 shadow-2xl backdrop-blur-xl md:p-12">
-      {/* Logo */}
-
       <div className="text-center">
         <h1 className="text-4xl font-black tracking-tight text-red-600">
           LifeDrop
@@ -127,7 +141,21 @@ export default function RegisterForm() {
           />
         </div>
 
-        <PasswordInput required label="Password" name="password" />
+        <PasswordInput
+          required
+          label="Password"
+          name="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <PasswordInput
+          required
+          label="Confirm Password"
+          name="confirmPassword"
+          value={confirmPassword}
+          onChange={handlePasswordChange}
+          error={error}
+        />
 
         {/* Button */}
 

@@ -5,11 +5,15 @@ import { HiOutlineBookOpen, HiOutlineBriefcase, HiOutlineHome } from "react-icon
 import Link from "next/link";
 import Image from "next/image";
 import { TbAsset } from "react-icons/tb";
-import { FaUsersCog } from "react-icons/fa";
 import { GrTransaction } from "react-icons/gr";
 import { authClient } from "@/lib/auth-client";
+import { BiDonateBlood } from "react-icons/bi";
+import { FaRegCircleUser } from "react-icons/fa6";
+import { LuLogOut, LuPencilLine } from "react-icons/lu";
+import { usePathname } from "next/navigation";
 
 export function DashboardSidebar() {
+  const pathName = usePathname();
   const handleSignOut = async () => {
     await authClient.signOut();
   };
@@ -28,13 +32,18 @@ export function DashboardSidebar() {
         label: "Home",
       },
       {
-        icon: GrTransaction,
+        icon: FaRegCircleUser,
+        href: "/dashboard/donor/profile",
+        label: "Profile",
+      },
+      {
+        icon: BiDonateBlood,
         href: "/dashboard/donor/requests",
         label: "My Requests",
       },
       {
-        icon: HiOutlineBriefcase,
-        href: "/dashboard/seller/company",
+        icon: LuPencilLine,
+        href: "/dashboard/donor/create-donation-request",
         label: "Create Request",
       },
     ],
@@ -64,19 +73,24 @@ export function DashboardSidebar() {
     admin: [
       { icon: HiOutlineBookOpen, href: "/dashboard/admin", label: "Overview" },
       {
-        icon: FaUsersCog,
-        href: "/dashboard/admin/products",
-        label: "User Manage",
+        icon: HiOutlineHome,
+        href: "/",
+        label: "Home",
       },
       {
-        icon: GrTransaction,
-        href: "/dashboard/admin/transaction",
-        label: "Transactions",
+        icon: FaRegCircleUser,
+        href: "/dashboard/admin/profile",
+        label: "Profile",
+      },
+      {
+        icon: BiDonateBlood,
+        href: "/dashboard/donor/all-requests",
+        label: "All Requests",
       },
       {
         icon: HiOutlineBriefcase,
-        href: "/dashboard/admin/company",
-        label: "Company Profile",
+        href: "/dashboard/admin/users",
+        label: "Manage Users",
       },
     ],
   };
@@ -85,14 +99,16 @@ export function DashboardSidebar() {
 
   const navContent = (
     <div className="flex flex-col justify-between h-full">
-      <nav className="flex flex-col gap-1">
+      <nav className="flex flex-col gap-1 lg:p-3">
         {navItems.map((item) => (
           <Link
             key={item.label}
-            className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-foreground transition-colors hover:bg-default"
+            className={`flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-bold transition-colors hover:bg-red-100 hover:text-red-600 ${
+              pathName === item.href ? "bg-red-600 text-white" : ""
+            }`}
             href={item.href}
           >
-            <item.icon className="size-5 text-muted" />
+            <item.icon className="size-5" />
             {item.label}
           </Link>
         ))}
@@ -111,9 +127,10 @@ export function DashboardSidebar() {
         </div>
 
         <Button
-          className="w-full bg-red-400 text-white hover:bg-red-500 rounded-xl"
+          className="w-full bg-red-100 font-bold text-red-500 hover:bg-red-600 hover:text-white rounded-xl"
           onClick={handleSignOut}
         >
+          <LuLogOut />
           Logout
         </Button>
       </div>
@@ -122,25 +139,33 @@ export function DashboardSidebar() {
 
   return (
     <>
-      <aside className="hidden lg:flex w-50 shrink-0 border-r flex-col h-full">
+      <aside className="hidden lg:flex w-55 shrink-0 border-r flex-col h-full">
         <div className="border-b p-4 border-gray-500">
           <Image src="/nav-logo.png" alt="logo" width={150} height={150} />
         </div>
         {navContent}
       </aside>
       <Drawer>
-        <Button variant="secondary" className="lg:hidden">
+        <Button variant="secondary" className="lg:hidden mt-5 ml-2">
           <LayoutSideContentLeft />
-          Sidebar
         </Button>
         <Drawer.Backdrop>
           <Drawer.Content placement="left">
-            <Drawer.Dialog>
+            <Drawer.Dialog className="w-60 p-0">
               <Drawer.CloseTrigger />
               <Drawer.Header>
-                <Drawer.Heading>Navigation</Drawer.Heading>
+                <Drawer.Heading>
+                  <div className="border-b p-4 border-gray-500">
+                    <Image
+                      src="/nav-logo.png"
+                      alt="logo"
+                      width={150}
+                      height={150}
+                    />
+                  </div>
+                </Drawer.Heading>
               </Drawer.Header>
-              <Drawer.Body>{navContent}</Drawer.Body>
+              <Drawer.Body className="p-3">{navContent}</Drawer.Body>
             </Drawer.Dialog>
           </Drawer.Content>
         </Drawer.Backdrop>
