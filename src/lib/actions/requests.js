@@ -6,3 +6,25 @@ export const getDonationRequests = async () => {
   const res = await fetch(`${baseUrl}/donation-requests`);
   return res.json();
 };
+
+
+export const updateDonationRequest = async (id) => {
+  const res = await fetch(`${baseUrl}/donation-requests/${id}`, {
+    method: "PATCH",
+    headers: {
+      "content-type": "application/json",
+    },
+    body: JSON.stringify({
+      status: "inprogress",
+    }),
+  });
+  return res.json();
+};
+
+
+export const deleteDonationRequest = async (id) => {
+  const res = await fetch(`${baseUrl}/donation-requests/${id}`, {
+    method: "DELETE",
+  });
+  return res.json();
+};

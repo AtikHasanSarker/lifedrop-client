@@ -4,8 +4,9 @@ import { authClient } from "@/lib/auth-client";
 import {Button, Modal} from "@heroui/react";
 import { ShieldCheck } from "lucide-react";
 import Input from "./Input";
+import { updateDonationRequest } from "@/lib/actions/requests";
 
-export function DonateModal() {
+export function DonateModal({id, status}) {
     const { data: session } = authClient.useSession();
         const user = session?.user;
 
@@ -13,6 +14,7 @@ export function DonateModal() {
     <div className="flex flex-wrap gap-4">
       <Modal>
         <Button
+        isDisabled={status !== "pending"}
           size="lg"
           radius="lg"
           className="bg-red-600 w-full md:w-auto px-14 h-18 text-2xl font-semibold shadow-xl shadow-red-500/20 hover:scale-[1.03] transition-all duration-300"
@@ -68,6 +70,7 @@ export function DonateModal() {
               <Modal.Footer>
                 <div>
                   <Button
+                    onClick={() => updateDonationRequest(id)}
                     slot="close"
                     fullWidth
                     size="lg"

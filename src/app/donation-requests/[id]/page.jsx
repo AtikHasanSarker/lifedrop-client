@@ -2,7 +2,7 @@
 
 import Loading from "@/app/loading";
 import { DonateModal } from "@/components/ui/DonateModal";
-import { Card, Chip, Button, Separator } from "@heroui/react";
+import { Card, Chip, Button } from "@heroui/react";
 
 import {
   User,
@@ -43,10 +43,12 @@ export default function RequestDetailsPage() {
 
   const statusColor = {
     pending: "warning",
-    inprogress: "primary",
+    inprogress: "accent",
     done: "success",
     canceled: "danger",
   };
+
+  console.log(request.status);
 
   return (
     <section className="min-h-screen bg-linear-to-b from-rose-50 via-white to-slate-50">
@@ -79,7 +81,7 @@ export default function RequestDetailsPage() {
 
             <Chip
               color={statusColor[request.status]}
-              variant="solid"
+              variant="primary"
               className="capitalize px-4 py-3 text-base font-bold self-start lg:self-center"
             >
               {request.status}
@@ -248,10 +250,7 @@ export default function RequestDetailsPage() {
 
           {/* Request Message */}
 
-          <Card
-            shadow="lg"
-            className="rounded-3xl border border-red-100"
-          >
+          <Card shadow="lg" className="rounded-3xl border border-red-100">
             <Card.Content className="p-6">
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-12 h-12 rounded-2xl bg-red-50 flex items-center justify-center">
@@ -276,11 +275,10 @@ export default function RequestDetailsPage() {
           </Card>
         </div>
 
-          <div className="mt-10 flex justify-end">
-          <DonateModal />
-          </div>
-  
-    </div>
+        <div className="mt-10 flex justify-end">
+          <DonateModal id={request._id} status={request.status} />
+        </div>
+      </div>
     </section>
   );
 }
