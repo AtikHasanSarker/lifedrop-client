@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import {
@@ -8,19 +8,27 @@ import {
   MapPin,
   ArrowRight,
 } from "lucide-react";
+import { Chip } from "@heroui/react";
 
+const DonationRequestCard = ({ item, index }) => {
+  const {
+    _id,
+    recipientName,
+    recipientDistrict,
+    hospitalName,
+    donationDate,
+    donationTime,
+    bloodGroup,
+    status,
+  } = item;
 
-const DonationRequestCard = ({item, index}) => {
-    const {
-      _id,
-      recipientName,
-      recipientDistrict,
-      hospitalName,
-      donationDate,
-      donationTime,
-      bloodGroup,
-      status,
-    } = item;
+  const statusColor = {
+    pending: "warning",
+    inprogress: "accent",
+    done: "success",
+    canceled: "danger",
+  };
+
   return (
     <div>
       <motion.div
@@ -52,11 +60,14 @@ const DonationRequestCard = ({item, index}) => {
           </div>
 
           {/* Status */}
-          <div className="absolute left-6 top-6 rounded-full bg-yellow-500/80 px-3 py-1 backdrop-blur-lg">
-            <span className="font-bold text-white text-xs">
-              {status?.[0]?.toUpperCase() + status?.slice(1)}
-            </span>
-          </div>
+          <Chip
+            color={statusColor[status]}
+            variant="primary"
+            className="absolute left-6 top-6 rounded-full capitalize px-2 py-1 text-xs font-bold"
+          >
+            {status}
+          </Chip>
+
 
           <div className="absolute bottom-0 left-8 translate-y-1/2">
             <div className="flex h-20 w-20 items-center justify-center rounded-full border-4 border-white bg-red-100">

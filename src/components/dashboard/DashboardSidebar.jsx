@@ -38,7 +38,7 @@ export function DashboardSidebar() {
       },
       {
         icon: BiDonateBlood,
-        href: "/dashboard/donor/requests",
+        href: "/dashboard/donor/my-requests",
         label: "My Requests",
       },
       {
