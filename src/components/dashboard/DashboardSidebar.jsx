@@ -4,13 +4,13 @@ import { Avatar, Button, Drawer } from "@heroui/react";
 import { HiOutlineBookOpen, HiOutlineBriefcase, HiOutlineHome } from "react-icons/hi";
 import Link from "next/link";
 import Image from "next/image";
-import { TbAsset } from "react-icons/tb";
-import { GrTransaction } from "react-icons/gr";
 import { authClient } from "@/lib/auth-client";
 import { BiDonateBlood } from "react-icons/bi";
 import { FaRegCircleUser } from "react-icons/fa6";
 import { LuLogOut, LuPencilLine } from "react-icons/lu";
 import { usePathname } from "next/navigation";
+import { Droplets } from "lucide-react";
+import Loading from "@/app/loading";
 
 export function DashboardSidebar() {
   const pathName = usePathname();
@@ -19,8 +19,11 @@ export function DashboardSidebar() {
   };
 
   const { data: session } = authClient.useSession();
-
   const user = session?.user;
+  if (!user) {
+    return <Loading/>;
+  }
+
   const role = user?.role || "donor";
 
   const dashboardItems = {
@@ -51,23 +54,33 @@ export function DashboardSidebar() {
     volunteer: [
       {
         icon: HiOutlineBookOpen,
-        href: "/dashboard/buyer",
+        href: "/dashboard/volunteer",
         label: "Overview",
       },
       {
-        icon: TbAsset,
-        href: "/dashboard/buyer/products",
-        label: "Products",
+        icon: HiOutlineHome,
+        href: "/",
+        label: "Home",
       },
       {
-        icon: GrTransaction,
-        href: "/dashboard/buyer/transaction",
-        label: "Transactions",
+        icon: FaRegCircleUser,
+        href: "/dashboard/volunteer/profile",
+        label: "Profile",
       },
       {
-        icon: HiOutlineBriefcase,
-        href: "/dashboard/buyer/company",
-        label: "Company Profile",
+        icon: BiDonateBlood,
+        href: "/dashboard/volunteer/my-requests",
+        label: "My Requests",
+      },
+      {
+        icon: LuPencilLine,
+        href: "/dashboard/volunteer/create-donation-request",
+        label: "Create Request",
+      },
+      {
+        icon: Droplets,
+        href: "/dashboard/admin/all-requests",
+        label: "All Requests",
       },
     ],
     admin: [
@@ -84,12 +97,22 @@ export function DashboardSidebar() {
       },
       {
         icon: BiDonateBlood,
-        href: "/dashboard/donor/all-requests",
+        href: "/dashboard/admin/my-requests",
+        label: "My Requests",
+      },
+      {
+        icon: LuPencilLine,
+        href: "/dashboard/admin/create-donation-request",
+        label: "Create Request",
+      },
+      {
+        icon: Droplets,
+        href: "/dashboard/admin/all-requests",
         label: "All Requests",
       },
       {
         icon: HiOutlineBriefcase,
-        href: "/dashboard/admin/users",
+        href: "/dashboard/admin/user-management",
         label: "Manage Users",
       },
     ],
@@ -103,8 +126,10 @@ export function DashboardSidebar() {
         {navItems.map((item) => (
           <Link
             key={item.label}
-            className={`flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-bold transition-colors hover:bg-red-100 hover:text-red-600 ${
-              pathName === item.href ? "bg-red-600 text-white" : ""
+            className={`flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-bold transition-colors ${
+              pathName === item.href
+                ? "bg-red-600 text-white"
+                : "hover:bg-red-100 hover:text-red-600"
             }`}
             href={item.href}
           >
@@ -118,7 +143,7 @@ export function DashboardSidebar() {
         <div className="flex items-center gap-2">
           <Avatar size="sm">
             <Avatar.Image alt={user?.name} src={user?.image} />
-            <Avatar.Fallback delayMs={600}>JD</Avatar.Fallback>
+            <Avatar.Fallback>{user.name.charAt(0)}</Avatar.Fallback>
           </Avatar>
           <div className="flex flex-col gap-0">
             <p className="text-sm leading-5 font-medium">{user?.name}</p>

@@ -21,14 +21,26 @@ export const auth = betterAuth({
       status: {
         defaultValue: "active",
       },
+      phone: {
+        defaultValue: "",
+      },
+      district: {
+        defaultValue: "",
+      },
+      upazila: {
+        defaultValue: "",
+      },
+      bloodGroup: {
+        defaultValue: "",
+      },
     },
   },
-//   session: {
-//     cookieCache: {
-//       enabled: true,
-//       strategy: "jwt",
-//       maxAge: 60 * 24 * 60,
-//     },
-//   },
-//   plugins: [jwt()],
+  //   session: {
+  //     cookieCache: {
+  //       enabled: true,
+  //       strategy: "jwt",
+  //       maxAge: 60 * 24 * 60,
+  //     },
+  //   },
+  //   plugins: [jwt()],
 });

@@ -7,6 +7,7 @@ export default function Select({
   name,
   value,
   onChange,
+  defaultValue,
   options = [],
   placeholder = "Select an option",
   required = false,
@@ -27,6 +28,7 @@ export default function Select({
           name={name}
           value={value}
           onChange={onChange}
+          defaultValue={defaultValue}
           required={required}
           disabled={disabled}
           className={`

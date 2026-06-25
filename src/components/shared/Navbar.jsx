@@ -80,14 +80,13 @@ const Navbar = () => {
             </svg>
           </button>
           <Link href={"/"}>
-            <div>
+            <div className="hover:bg-zinc-200 p-2">
               <Image
                 height={100}
                 width={200}
                 loading="eager"
                 src="/nav-logo.png"
                 alt="logo"
-                className="hover:bg-zinc-200 p-2"
               />
             </div>
           </Link>

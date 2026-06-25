@@ -7,7 +7,6 @@ export const getDonationRequests = async () => {
   return res.json();
 };
 
-
 export const updateDonationRequest = async (id) => {
   const res = await fetch(`${baseUrl}/donation-requests/${id}`, {
     method: "PATCH",
@@ -28,3 +27,22 @@ export const deleteDonationRequest = async (id) => {
   });
   return res.json();
 };
+
+export const deleteUser = async (id) => {
+  const res = await fetch(`${baseUrl}/all-users/${id}`, {
+    method: "DELETE",
+  });
+  return res.json();
+};
+
+export const updateUser = async (id, data) => {
+  const res = await fetch(`${baseUrl}/all-users/${id}`, {
+    method: "PATCH",
+    headers: {
+      "content-type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+  return res.json();
+};
+

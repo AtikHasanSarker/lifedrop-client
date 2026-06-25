@@ -53,7 +53,7 @@ export default function RegisterForm() {
       email: user.email,
       password: user.password,
       image: user.imageUrl,
-      imageUrl: user.imageUrl,
+      phone: user.phone,
       bloodGroup: user.bloodGroup,
       district: user.district,
       upazila: user.upazila,
@@ -110,6 +110,14 @@ export default function RegisterForm() {
           type="email"
           name="email"
           placeholder="Enter your email"
+        />
+
+        <Input
+          required
+          label="Phone Number"
+          type="tel"
+          name="phone"
+          placeholder="Enter your phone number"
         />
 
         <Select

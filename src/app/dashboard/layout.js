@@ -21,7 +21,7 @@ export default async function DashboardLayout({ children }) {
             <p>Welcome Back, {user?.name}</p>
           </div>
           <div>
-            <p className="text-red-500 font-bold">{user?.role?.[0]?.toUpperCase() + user?.role?.slice(1)}</p>
+            <p className="text-red-500 font-bold capitalize">{user?.role}</p>
           </div>
         </div>
         <div className="">{children}</div>
