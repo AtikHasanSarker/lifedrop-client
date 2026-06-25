@@ -1,8 +1,8 @@
 "use client";
 import { useEffect, useState } from "react";
 import { authClient } from "@/lib/auth-client";
-import { Button, Chip, Dropdown, Label, Table } from "@heroui/react";
-import { CircleCheck, CircleX, EllipsisVertical, Trash2 } from "lucide-react";
+import { Avatar, Button, Chip, Dropdown, Label, Table } from "@heroui/react";
+import { CircleX, EllipsisVertical, Trash2 } from "lucide-react";
 import { updateUser } from "@/lib/actions/requests";
 import { useRouter } from "next/navigation";
 
@@ -10,10 +10,7 @@ const UsersManagementPage = () => {
   const router = useRouter();
   const { data: session } = authClient.useSession();
   const user = session?.user;
-
   const [allUsers, setAllUsers] = useState([]);
-
-  console.log(allUsers);
 
   useEffect(() => {
     if (!user?.id) return;
@@ -38,26 +35,22 @@ const UsersManagementPage = () => {
     admin: "danger",
   };
 
-  const handleUpdateUser = async(id, info)=>{
-    if(info==="blocked" || "active"){
-      const status = {status: info}
+  const handleUpdateUser = async (id, info) => {
+    if (info === "blocked" || info === "active") {
+      const status = { status: info };
       const data = await updateUser(id, status);
-      if (data.updatedCount > 0) {
+      console.log(data);
+      if (data.modifiedCount > 0) {
         router.refresh();
-      } else {
-        toast.error("Failed to delete donation request");
       }
-    }
-    else{
+    } else {
       const role = { role: info };
       const data = await updateUser(id, role);
-      if (data.updatedCount > 0) {
+      if (data.modifiedCount > 0) {
         router.refresh();
-      } else {
-        toast.error("Failed to delete donation request");
       }
     }
-  }
+  };
 
   return (
     <div className="pt-10 pb-20 h-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -131,8 +124,8 @@ const UsersManagementPage = () => {
                 >
                   <Table.Header className="text-xs text-muted">
                     <Table.Column isRowHeader>#</Table.Column>
-                    <Table.Column>USER NAME</Table.Column>
-                    <Table.Column>LOCATION</Table.Column>
+                    <Table.Column>USER PROFILE</Table.Column>
+                    <Table.Column>EMAIL</Table.Column>
                     <Table.Column>ROLE</Table.Column>
                     <Table.Column>STATUS</Table.Column>
                     <Table.Column>ACTIONS</Table.Column>
@@ -141,8 +134,16 @@ const UsersManagementPage = () => {
                     {allUsers.map((user, index) => (
                       <Table.Row key={user._id}>
                         <Table.Cell>{index + 1}</Table.Cell>
-                        <Table.Cell>{user.name}</Table.Cell>
-                        <Table.Cell>{user.district}</Table.Cell>
+                        <Table.Cell className="flex items-center gap-3">
+                          <Avatar size="md">
+                            <Avatar.Image alt={user?.name} src={user?.image} />
+                            <Avatar.Fallback>
+                              {user.name.charAt(0)}
+                            </Avatar.Fallback>
+                          </Avatar>
+                          <p className="font-bold text-[16px]">{user.name}</p>
+                        </Table.Cell>
+                        <Table.Cell>{user.email}</Table.Cell>
                         <Table.Cell>
                           <Chip
                             color={roleColor[user.role]}
@@ -176,10 +177,9 @@ const UsersManagementPage = () => {
                               >
                                 {user.status === "active" ? (
                                   <Dropdown.Item
-                                    onClick={handleUpdateUser(
-                                      user._id,
-                                      "blocked",
-                                    )}
+                                    onClick={() =>
+                                      handleUpdateUser(user._id, "blocked")
+                                    }
                                     id="block-user"
                                     textValue="Block User"
                                   >

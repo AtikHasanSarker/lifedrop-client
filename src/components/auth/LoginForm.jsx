@@ -73,18 +73,6 @@ export default function LoginForm() {
           minLength={8}
           className="w-full max-w-full"
           name="password"
-          validate={(value) => {
-            if (value.length < 8) {
-              return "Password must be at least 8 characters";
-            }
-            if (!/[A-Z]/.test(value)) {
-              return "Password must contain at least one uppercase letter";
-            }
-            if (!/[0-9]/.test(value)) {
-              return "Password must contain at least one number";
-            }
-            return null;
-          }}
         >
           <Label className="font-semibold">Password</Label>
           <InputGroup>
@@ -126,7 +114,7 @@ export default function LoginForm() {
           size="lg"
           className=" h-14
     w-full
-    bg-gradient-to-r
+    bg-linear-to-r
     from-red-600
     to-rose-500
     text-base

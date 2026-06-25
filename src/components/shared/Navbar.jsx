@@ -176,8 +176,13 @@ const Navbar = () => {
                   </Dropdown.Item>
 
                   <Dropdown.Item id="copy-link" textValue="Copy link">
-                    <CgProfile />
-                    <Label>Profile</Label>
+                    <Link
+                      className="flex items-center gap-2"
+                      href={`/dashboard/${user?.role}/profile`}
+                    >
+                      <CgProfile />
+                      <Label>Profile</Label>
+                    </Link>
                   </Dropdown.Item>
 
                   <Dropdown.Item

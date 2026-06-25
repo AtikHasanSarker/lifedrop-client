@@ -36,7 +36,7 @@ export const deleteUser = async (id) => {
 };
 
 export const updateUser = async (id, data) => {
-  const res = await fetch(`${baseUrl}/all-users/${id}`, {
+  const res = await fetch(`${baseUrl}/users/${id}`, {
     method: "PATCH",
     headers: {
       "content-type": "application/json",

@@ -1,7 +1,7 @@
 'use client';
 import { LayoutSideContentLeft } from "@gravity-ui/icons";
 import { Avatar, Button, Drawer } from "@heroui/react";
-import { HiOutlineBookOpen, HiOutlineBriefcase, HiOutlineHome } from "react-icons/hi";
+import { HiOutlineBookOpen, HiOutlineHome } from "react-icons/hi";
 import Link from "next/link";
 import Image from "next/image";
 import { authClient } from "@/lib/auth-client";
@@ -9,7 +9,7 @@ import { BiDonateBlood } from "react-icons/bi";
 import { FaRegCircleUser } from "react-icons/fa6";
 import { LuLogOut, LuPencilLine } from "react-icons/lu";
 import { usePathname } from "next/navigation";
-import { Droplets } from "lucide-react";
+import { Droplets, Users } from "lucide-react";
 import Loading from "@/app/loading";
 
 export function DashboardSidebar() {
@@ -107,13 +107,13 @@ export function DashboardSidebar() {
       },
       {
         icon: Droplets,
-        href: "/dashboard/admin/all-requests",
-        label: "All Requests",
+        href: "/dashboard/admin/public-requests",
+        label: "Public Requests",
       },
       {
-        icon: HiOutlineBriefcase,
-        href: "/dashboard/admin/user-management",
-        label: "Manage Users",
+        icon: Users,
+        href: "/dashboard/admin/all-users",
+        label: "All Users",
       },
     ],
   };
