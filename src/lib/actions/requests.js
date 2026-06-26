@@ -6,6 +6,10 @@ export const getDonationRequests = async () => {
   const res = await fetch(`${baseUrl}/donation-requests`);
   return res.json();
 };
+export const getDonationRequestById = async (id) => {
+  const res = await fetch(`${baseUrl}/donation-requests/${id}`);
+  return res.json();
+};
 
 export const getMyDonationRequests = async (id) => {
   const res = await fetch(`${baseUrl}/my-donation-requests/${id}`);
@@ -47,6 +51,17 @@ export const updateUser = async (id, data) => {
       "content-type": "application/json",
     },
     body: JSON.stringify(data),
+  });
+  return res.json();
+};
+
+export const updatePublicRequest = async (id, status) => {
+  const res = await fetch(`${baseUrl}/public-donation-requests/${id}`, {
+    method: "PATCH",
+    headers: {
+      "content-type": "application/json",
+    },
+    body: JSON.stringify(status),
   });
   return res.json();
 };

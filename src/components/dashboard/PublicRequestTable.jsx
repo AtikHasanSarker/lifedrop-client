@@ -1,19 +1,18 @@
 "use client";
-import { Button, Chip, Table, Dropdown, Label } from "@heroui/react";
-import { CircleCheck, CircleX, EllipsisVertical, Pencil, Trash2 } from "lucide-react";
-import {
-  deleteDonationRequest,
-  updatePublicRequest,
-} from "@/lib/actions/requests";
-import { useRouter } from "next/navigation";
+import { Button, Chip, Dropdown, Label, Table } from "@heroui/react";
+import { CircleCheck, CircleX, EllipsisVertical, Trash2 } from "lucide-react";
+import { deleteDonationRequest, updatePublicRequest } from "@/lib/actions/requests";
 import toast from "react-hot-toast";
-import Link from "next/link";
-import { authClient } from "@/lib/auth-client";
+import { useRouter } from "next/navigation";
 
-const RequestTable = ({ donationRequests }) => {
+const PublicRequestTable = ({ donationRequests }) => {
   const router = useRouter();
-  const { data: session } = authClient.useSession();
-  const user = session?.user;
+  const statusColor = {
+    pending: "warning",
+    inprogress: "accent",
+    done: "success",
+    canceled: "danger",
+  };
 
   const handleUpdateRequest = async (id, status) => {
     const payload =
@@ -36,22 +35,15 @@ const RequestTable = ({ donationRequests }) => {
       toast.error("Failed to delete donation request");
     }
   };
-
-  const statusColor = {
-    pending: "warning",
-    inprogress: "accent",
-    done: "success",
-    canceled: "danger",
-  };
   return (
     <div>
       <div>
         <div className="mb-8">
           <h1 className="text-3xl sm:text-4xl font-bold">
-            Your Donation Requests
+            All Donation Requests
           </h1>
           <p className="text-default-500 mt-2 max-w-2xl">
-            Manage your donation requests across mobile, tablet, and desktop.
+            Manage donation requests across mobile, tablet, and desktop.
           </p>
         </div>
 
@@ -98,7 +90,9 @@ const RequestTable = ({ donationRequests }) => {
               </div>
 
               <Dropdown>
-                <Button variant="outline">
+                <Button
+                  variant="outline"
+                >
                   <EllipsisVertical />
                 </Button>
                 <Dropdown.Popover>
@@ -131,19 +125,6 @@ const RequestTable = ({ donationRequests }) => {
                             Cancel
                           </Label>
                         </Dropdown.Item>
-                        <Dropdown.Item
-                          id="edit-request"
-                          textValue="Edit request"
-                        >
-                          <Link
-                            href={`/dashboard/${user.role}/edit-request/${request._id}`}
-                          >
-                            <Label className="flex items-center gap-2 text-accent">
-                              <Pencil size={16} />
-                              Edit Request
-                            </Label>
-                          </Link>
-                        </Dropdown.Item>
                       </>
                     )}
 
@@ -174,7 +155,7 @@ const RequestTable = ({ donationRequests }) => {
               >
                 <Table.Header className="text-xs text-muted">
                   <Table.Column isRowHeader>#</Table.Column>
-                  <Table.Column>RECIPIENT</Table.Column>
+                  <Table.Column>PARTICIPANTS</Table.Column>
                   <Table.Column>LOCATION</Table.Column>
                   <Table.Column>NEED</Table.Column>
                   <Table.Column>STATUS</Table.Column>
@@ -184,9 +165,27 @@ const RequestTable = ({ donationRequests }) => {
                   {donationRequests.map((request, index) => (
                     <Table.Row key={request._id}>
                       <Table.Cell>{index + 1}</Table.Cell>
-                      <Table.Cell>{request.recipientName}</Table.Cell>
+                      <Table.Cell>
+                        <p className="font-bold">
+                          {request.recipientName}{" "}
+                          <span className="text-[10px] text-muted">
+                            Recipient
+                          </span>
+                        </p>
+                        <p className="text-xs text-muted font-semibold italic">
+                          Requested by {request.requesterName}
+                        </p>
+                      </Table.Cell>
                       <Table.Cell>{request.recipientDistrict}</Table.Cell>
-                      <Table.Cell>{request.bloodGroup}</Table.Cell>
+                      <Table.Cell>
+                        <Chip
+                          color="danger"
+                          variant="primary"
+                          className="rounded-full px-2 py-1 text-xs font-bold"
+                        >
+                          {request.bloodGroup}
+                        </Chip>
+                      </Table.Cell>
                       <Table.Cell>
                         <Chip
                           color={statusColor[request.status]}
@@ -196,6 +195,7 @@ const RequestTable = ({ donationRequests }) => {
                           {request.status}
                         </Chip>
                       </Table.Cell>
+
                       <Table.Cell>
                         <Dropdown>
                           <Button variant="outline">
@@ -207,7 +207,7 @@ const RequestTable = ({ donationRequests }) => {
                                 console.log(`Selected: ${key}`)
                               }
                             >
-                              {request.status !== "done" && (
+                              {request.status === "inprogress" && (
                                 <>
                                   <Dropdown.Item
                                     onClick={() =>
@@ -236,30 +236,17 @@ const RequestTable = ({ donationRequests }) => {
                                       Cancel
                                     </Label>
                                   </Dropdown.Item>
-
-                                  <Dropdown.Item
-                                    id="edit-request"
-                                    textValue="Edit request"
-                                  >
-                                    <Link
-                                      href={`/dashboard/${user.role}/edit-request/${request._id}`}
-                                    >
-                                      <Label className="flex items-center gap-2 text-accent">
-                                        <Pencil size={16} />
-                                        Edit Request
-                                      </Label>
-                                    </Link>
-                                  </Dropdown.Item>
                                 </>
                               )}
+
                               <Dropdown.Item
-                                id="delete-request"
-                                textValue="Delete request"
+                                id="delete-file"
+                                textValue="Delete file"
                                 variant="danger"
                                 onClick={() => handleDelete(request._id)}
                               >
                                 <Label className="flex items-center gap-2">
-                                  <Trash2 size={16} /> Delete Request
+                                  <Trash2 size={16} /> Delete file
                                 </Label>
                               </Dropdown.Item>
                             </Dropdown.Menu>
@@ -278,4 +265,4 @@ const RequestTable = ({ donationRequests }) => {
   );
 };
 
-export default RequestTable;
+export default PublicRequestTable;

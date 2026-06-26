@@ -161,7 +161,7 @@ const Navbar = () => {
                 >
                   <Dropdown.Item id="new-file" textValue="New file">
                     <Link
-                      className="flex items-center gap-2"
+                      className="flex items-center gap-2 w-full"
                       href={`/dashboard/${user?.role}`}
                     >
                       <MdDashboard />
