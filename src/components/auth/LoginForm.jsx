@@ -70,9 +70,9 @@ export default function LoginForm() {
 
         <TextField
           isRequired
-          minLength={8}
           className="w-full max-w-full"
           name="password"
+          type="password"
         >
           <Label className="font-semibold">Password</Label>
           <InputGroup>

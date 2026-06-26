@@ -15,11 +15,6 @@ import { MdDashboard } from "react-icons/md";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  const closeMenu = () => {
-    setIsMenuOpen(false);
-  };
-
     const { data: session } = authClient.useSession();
     const user = session?.user;
 
@@ -37,7 +32,6 @@ const Navbar = () => {
     },
     { title: "Search Donor", href: "/search-donor", icon: IoSearch },
   ];
-
   const authItems = [
     { title: "Funding", href: `/funding`, icon: LiaDonateSolid },
   ];
@@ -123,7 +117,7 @@ const Navbar = () => {
         </div>
 
         {!user && (
-          <Link href="/login" className="hidden items-center gap-2 md:flex">
+          <Link href="/login" className="items-center gap-2 flex">
             <Button className="bg-red-600 text-white hover:bg-red-700">
               {" "}
               <FaUserCircle />
@@ -133,7 +127,7 @@ const Navbar = () => {
         )}
 
         {user && (
-          <div className="hidden items-center gap-4 md:flex">
+          <div>
             <Dropdown>
               <Dropdown.Trigger className="rounded-full">
                 <Avatar size="sm" aria-label="Menu">
@@ -174,7 +168,6 @@ const Navbar = () => {
                       <Label>Dashboard</Label>
                     </Link>
                   </Dropdown.Item>
-
                   <Dropdown.Item id="copy-link" textValue="Copy link">
                     <Link
                       className="flex items-center gap-2"
@@ -184,7 +177,6 @@ const Navbar = () => {
                       <Label>Profile</Label>
                     </Link>
                   </Dropdown.Item>
-
                   <Dropdown.Item
                     id="delete-file"
                     textValue="Delete file"
@@ -201,6 +193,7 @@ const Navbar = () => {
         )}
       </header>
 
+        {/* For mobile devices */}
       {isMenuOpen && (
         <div className="border-t border-separator md:hidden">
           <ul className="flex flex-col gap-2 p-4">
@@ -234,14 +227,6 @@ const Navbar = () => {
                 </Link>
               </li>
             ))}
-            <li className="mt-4 flex flex-col gap-2 border-t border-separator pt-4">
-              <Link href="#" className="block py-2 items-center gap-2 md:flex">
-                <Button className="w-full bg-red-600 text-white hover:bg-red-700">
-                  <FaUserCircle />
-                  Login
-                </Button>
-              </Link>
-            </li>
           </ul>
         </div>
       )}
