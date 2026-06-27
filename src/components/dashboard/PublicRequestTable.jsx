@@ -1,9 +1,19 @@
 "use client";
 import { Button, Chip, Dropdown, Label, Table } from "@heroui/react";
-import { CircleCheck, CircleX, EllipsisVertical, Trash2 } from "lucide-react";
-import { deleteDonationRequest, updatePublicRequest } from "@/lib/actions/requests";
+import {
+  CircleCheck,
+  CircleX,
+  EllipsisVertical,
+  Eye,
+  Trash2,
+} from "lucide-react";
+import {
+  deleteDonationRequest,
+  updatePublicRequest,
+} from "@/lib/actions/requests";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const PublicRequestTable = ({ donationRequests }) => {
   const router = useRouter();
@@ -90,15 +100,20 @@ const PublicRequestTable = ({ donationRequests }) => {
               </div>
 
               <Dropdown>
-                <Button
-                  variant="outline"
-                >
+                <Button variant="outline">
                   <EllipsisVertical />
                 </Button>
                 <Dropdown.Popover>
                   <Dropdown.Menu
                     onAction={(key) => console.log(`Selected: ${key}`)}
                   >
+                    <Dropdown.Item id="view-request" textValue="View request">
+                      <Link href={`/donation-requests/${request._id}`}>
+                        <Label className="flex items-center gap-2">
+                          <Eye size={16} /> View Request
+                        </Label>
+                      </Link>
+                    </Dropdown.Item>
                     {request.status !== "done" && (
                       <>
                         <Dropdown.Item
@@ -156,7 +171,7 @@ const PublicRequestTable = ({ donationRequests }) => {
                 <Table.Header className="text-xs text-muted">
                   <Table.Column isRowHeader>#</Table.Column>
                   <Table.Column>PARTICIPANTS</Table.Column>
-                  <Table.Column>LOCATION</Table.Column>
+                  <Table.Column>EMAIL</Table.Column>
                   <Table.Column>NEED</Table.Column>
                   <Table.Column>STATUS</Table.Column>
                   <Table.Column>ACTIONS</Table.Column>
@@ -176,7 +191,7 @@ const PublicRequestTable = ({ donationRequests }) => {
                           Requested by {request.requesterName}
                         </p>
                       </Table.Cell>
-                      <Table.Cell>{request.recipientDistrict}</Table.Cell>
+                      <Table.Cell>{request.requesterEmail}</Table.Cell>
                       <Table.Cell>
                         <Chip
                           color="danger"
@@ -207,6 +222,18 @@ const PublicRequestTable = ({ donationRequests }) => {
                                 console.log(`Selected: ${key}`)
                               }
                             >
+                              <Dropdown.Item
+                                id="view-request"
+                                textValue="View request"
+                              >
+                                <Link
+                                  href={`/donation-requests/${request._id}`}
+                                >
+                                  <Label className="flex items-center gap-2">
+                                    <Eye size={16} /> View Request
+                                  </Label>
+                                </Link>
+                              </Dropdown.Item>
                               {request.status === "inprogress" && (
                                 <>
                                   <Dropdown.Item

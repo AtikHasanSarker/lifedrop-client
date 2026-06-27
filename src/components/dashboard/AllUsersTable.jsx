@@ -1,5 +1,6 @@
 'use client';
 
+import { updateUser } from "@/lib/actions/requests";
 import { Avatar, Button, Chip, Dropdown, Label, Table } from "@heroui/react";
 import { CircleX, EllipsisVertical, Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -15,6 +16,7 @@ const AllUsersTable = ({ allUsers }) => {
 
       const data = await updateUser(id, payload);
       console.log(data);
+
       if (data.modifiedCount > 0) {
         router.refresh();
       }
@@ -34,58 +36,10 @@ const AllUsersTable = ({ allUsers }) => {
           </p>
         </div>
 
-        {/* <div className="space-y-4 md:hidden">
-            {donationRequests.map((request) => (
-              <article
-                key={request._id}
-                className="rounded-3xl border border-default-200 bg-white p-4 shadow-sm"
-              >
-                <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                  <div>
-                    <h2 className="text-lg font-semibold text-slate-900">
-                      {request.tutorName}
-                    </h2>
-                    <p className="text-sm text-default-500">
-                      {request.subject}
-                    </p>
-                  </div>
+        {/* for mobile devices */}
 
-                  <Chip
-                    color={statusColor[request.status]}
-                    variant="primary"
-                    className="absolute left-6 top-6 rounded-full capitalize px-2 py-1 text-xs font-bold"
-                  >
-                    {request.status}
-                  </Chip>
-                </div>
 
-                <div className="mt-4 grid gap-2 text-sm text-slate-700">
-                  <div>
-                    <span className="font-semibold">Student:</span>{" "}
-                    {request.userName}
-                  </div>
-                  <div>
-                    <span className="font-semibold">Phone:</span>{" "}
-                    {request.phone}
-                  </div>
-                  <div>
-                    <span className="font-semibold">Email:</span>{" "}
-                    {request.email}
-                  </div>
-                </div>
-
-                <Button
-                  isDisabled={request.status === "Cancelled"}
-                  onClick={() => handleRemove(request._id)}
-                  variant="danger-soft"
-                  className="mt-4 w-full text-red-600"
-                >
-                  Remove
-                </Button>
-              </article>
-            ))}
-          </div> */}
-
+      {/* for larger screens */}
         <div className="hidden md:block">
           <Table>
             <Table.ScrollContainer>
@@ -137,7 +91,7 @@ const AllUsersTable = ({ allUsers }) => {
                       </Table.Cell>
                       <Table.Cell>
                         <Dropdown>
-                          <Button variant="outline">
+                          <Button isDisabled={user.role === "admin"} variant="outline">
                             <EllipsisVertical />
                           </Button>
                           <Dropdown.Popover>
@@ -202,7 +156,7 @@ const AllUsersTable = ({ allUsers }) => {
                                 </Dropdown.Item>
                               )}
 
-                              {user.role === "admin" && (
+                              {user.role === "volunteer" && (
                                 <Dropdown.Item
                                   id="make-admin"
                                   textValue="Make Admin"

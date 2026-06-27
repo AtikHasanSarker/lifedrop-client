@@ -1,6 +1,6 @@
 "use client";
 import { Button, Chip, Table, Dropdown, Label } from "@heroui/react";
-import { CircleCheck, CircleX, EllipsisVertical, Pencil, Trash2 } from "lucide-react";
+import { CircleCheck, CircleX, EllipsisVertical, Eye, Pencil, Trash2 } from "lucide-react";
 import {
   deleteDonationRequest,
   updatePublicRequest,
@@ -105,6 +105,14 @@ const RequestTable = ({ donationRequests }) => {
                   <Dropdown.Menu
                     onAction={(key) => console.log(`Selected: ${key}`)}
                   >
+                    <Dropdown.Item id="view-request" textValue="View request">
+                      <Link href={`/donation-requests/${request._id}`}>
+                        <Label className="flex items-center gap-2">
+                          <Eye size={16} /> View Request
+                        </Label>
+                      </Link>
+                    </Dropdown.Item>
+
                     {request.status !== "done" && (
                       <>
                         <Dropdown.Item
@@ -186,7 +194,15 @@ const RequestTable = ({ donationRequests }) => {
                       <Table.Cell>{index + 1}</Table.Cell>
                       <Table.Cell>{request.recipientName}</Table.Cell>
                       <Table.Cell>{request.recipientDistrict}</Table.Cell>
-                      <Table.Cell>{request.bloodGroup}</Table.Cell>
+                      <Table.Cell>
+                        <Chip
+                          color="danger"
+                          variant="primary"
+                          className="rounded-full px-2 py-1 text-xs font-bold"
+                        >
+                          {request.bloodGroup}
+                        </Chip>
+                      </Table.Cell>
                       <Table.Cell>
                         <Chip
                           color={statusColor[request.status]}
@@ -207,6 +223,18 @@ const RequestTable = ({ donationRequests }) => {
                                 console.log(`Selected: ${key}`)
                               }
                             >
+                              <Dropdown.Item
+                                id="view-request"
+                                textValue="View request"
+                              >
+                                <Link
+                                  href={`/donation-requests/${request._id}`}
+                                >
+                                  <Label className="flex items-center gap-2">
+                                    <Eye size={16} /> View Request
+                                  </Label>
+                                </Link>
+                              </Dropdown.Item>
                               {request.status !== "done" && (
                                 <>
                                   <Dropdown.Item

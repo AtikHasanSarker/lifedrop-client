@@ -1,6 +1,7 @@
 import { updateUser } from "@/lib/actions/requests";
 import AllUsersTable from "@/components/dashboard/AllUsersTable";
 import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 
 const UsersManagementPage = async () => {
   const session = await auth.api.getSession({
