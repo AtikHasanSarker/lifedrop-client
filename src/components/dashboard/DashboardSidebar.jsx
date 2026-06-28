@@ -79,7 +79,7 @@ export function DashboardSidebar() {
       },
       {
         icon: Droplets,
-        href: "/dashboard/admin/all-requests",
+        href: "/dashboard/admin/public-requests",
         label: "All Requests",
       },
     ],
