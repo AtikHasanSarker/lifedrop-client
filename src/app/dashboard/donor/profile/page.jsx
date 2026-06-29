@@ -269,7 +269,7 @@ export default function ProfilePage() {
 
             <Separator className="my-4" />
 
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-5">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
               <div className="rounded-3xl bg-red-50 p-6 text-center">
                 <Droplets size={34} className="mx-auto text-red-600 mb-3" />
 

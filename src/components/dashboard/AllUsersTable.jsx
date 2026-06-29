@@ -37,9 +37,125 @@ const AllUsersTable = ({ allUsers }) => {
         </div>
 
         {/* for mobile devices */}
+        <div className="space-y-4 md:hidden">
+          {allUsers.map((user, index) => (
+            <article
+              key={user._id}
+              className="rounded-3xl border border-default-200 bg-white p-4 shadow-sm flex justify-between"
+            >
+              <div className="flex justify-between">
+                <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                  <div>
+                    <div className="flex gap-8">
+                      <p># {index + 1}</p>{" "}
+                      <Chip
+                        color={user.status === "active" ? "success" : "danger"}
+                        variant="primary"
+                        className="rounded-full capitalize px-2 py-1 text-[10px]"
+                      >
+                        {user.status}
+                      </Chip>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Avatar size="sm">
+                        <Avatar.Image alt={user?.name} src={user?.image} />
+                        <Avatar.Fallback>{user.name.charAt(0)}</Avatar.Fallback>
+                      </Avatar>
+                      <h2 className="text-lg font-semibold text-slate-900">
+                        {user.name}
+                      </h2>
+                    </div>
+                    <p className="text-sm text-default-500">{user.email}</p>
+                    <div>
+                      <span className="font-semibold text-sm">User Role:</span>{" "}
+                      <Chip
+                        color={roleColor[user.role]}
+                        variant="soft"
+                        className="rounded-full px-2 py-1 text-xs font-bold"
+                      >
+                        {user.role}
+                      </Chip>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
+              <Dropdown>
+                <Button isDisabled={user.role === "admin"} variant="outline">
+                  <EllipsisVertical />
+                </Button>
+                <Dropdown.Popover>
+                  <Dropdown.Menu
+                    onAction={(key) => console.log(`Selected: ${key}`)}
+                  >
+                    {user.status === "active" ? (
+                      <Dropdown.Item
+                        onClick={() => handleUpdateUser(user._id, "blocked")}
+                        id="block-user"
+                        textValue="Block User"
+                      >
+                        <Label className="flex items-center gap-2">
+                          <CircleX size={16} color="red" />
+                          Block User
+                        </Label>
+                      </Dropdown.Item>
+                    ) : (
+                      <Dropdown.Item
+                        onClick={() => handleUpdateUser(user._id, "active")}
+                        id="block-user"
+                        textValue="Block User"
+                      >
+                        <Label className="flex items-center gap-2">
+                          <CircleX size={16} color="green" />
+                          Unblock User
+                        </Label>
+                      </Dropdown.Item>
+                    )}
 
-      {/* for larger screens */}
+                    {user.role === "donor" ? (
+                      <Dropdown.Item
+                        onClick={() => handleUpdateUser(user._id, "volunteer")}
+                        id="make-volunteer"
+                        textValue="Make Volunteer"
+                      >
+                        <Label className="flex items-center gap-2">
+                          <CircleX size={16} color="red" />
+                          Make Volunteer
+                        </Label>
+                      </Dropdown.Item>
+                    ) : (
+                      <Dropdown.Item
+                        onClick={() => handleUpdateUser(user._id, "donor")}
+                        id="make-donor"
+                        textValue="Make Donor"
+                      >
+                        <Label className="flex items-center gap-2">
+                          <CircleX size={16} color="red" />
+                          Make Donor
+                        </Label>
+                      </Dropdown.Item>
+                    )}
+
+                    {user.role === "volunteer" && (
+                      <Dropdown.Item
+                        id="make-admin"
+                        textValue="Make Admin"
+                        variant="danger"
+                        onClick={() => handleUpdateUser(user._id, "admin")}
+                      >
+                        <Label className="flex items-center gap-2">
+                          <Trash2 size={16} /> Make Admin
+                        </Label>
+                      </Dropdown.Item>
+                    )}
+                  </Dropdown.Menu>
+                </Dropdown.Popover>
+              </Dropdown>
+            </article>
+          ))}
+        </div>
+
+        {/* for larger screens */}
         <div className="hidden md:block">
           <Table>
             <Table.ScrollContainer>
@@ -91,7 +207,10 @@ const AllUsersTable = ({ allUsers }) => {
                       </Table.Cell>
                       <Table.Cell>
                         <Dropdown>
-                          <Button isDisabled={user.role === "admin"} variant="outline">
+                          <Button
+                            isDisabled={user.role === "admin"}
+                            variant="outline"
+                          >
                             <EllipsisVertical />
                           </Button>
                           <Dropdown.Popover>

@@ -2,6 +2,7 @@
 
 import Loading from "@/app/loading";
 import { DonateModal } from "@/components/ui/DonateModal";
+import { authClient } from "@/lib/auth-client";
 import { Card, Chip, Button } from "@heroui/react";
 
 import {
@@ -13,6 +14,7 @@ import {
   CalendarDays,
   Clock3,
   ArrowLeft,
+  Phone,
 } from "lucide-react";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -105,12 +107,12 @@ export default function RequestDetailsPage() {
             shadow="lg"
             className="bg-linear-to-br from-red-500 via-rose-500 to-red-600 text-white border-none"
           >
-            <Card.Content className="flex flex-row gap-3 h-full p-6 items-center">
+            <Card.Content className="flex flex-row gap-3 h-full p-4 items-center">
               <div className="w-16 h-16 rounded-2xl bg-white/20 flex items-center justify-center backdrop-blur">
                 <Droplets size={34} />
               </div>
               <div>
-                <h2 className="text-4xl font-black mt-3">
+                <h2 className="text-3xl font-black mt-3">
                   {request.bloodGroup}
                 </h2>
                 <p className="text-red-100 mt-2">Required Blood</p>
@@ -121,7 +123,7 @@ export default function RequestDetailsPage() {
           {/* Requester */}
 
           <Card shadow="lg" className="rounded-3xl">
-            <Card.Content className="p-6">
+            <Card.Content className="p-4">
               <div className="flex items-center gap-5">
                 <div className="w-20 h-20 rounded-3xl bg-red-50 flex items-center justify-center">
                   <User size={38} className="text-red-600" />
@@ -149,7 +151,7 @@ export default function RequestDetailsPage() {
           {/* Hospital */}
 
           <Card shadow="lg" className="rounded-3xl">
-            <Card.Content className="p-6">
+            <Card.Content className="p-4">
               <div className="flex items-start gap-5">
                 <div className="w-16 h-16 rounded-2xl bg-red-50 flex items-center justify-center">
                   <Hospital size={30} className="text-red-600" />
@@ -164,7 +166,7 @@ export default function RequestDetailsPage() {
                     {request.hospitalName}
                   </h2>
 
-                  <div className="flex items-center gap-2 mt-3 text-default-600">
+                  <div className="flex items-center gap-2 mt-3 text-xs text-default-600">
                     <MapPin size={17} />
 
                     {request.hospitalAddress}
@@ -211,11 +213,30 @@ export default function RequestDetailsPage() {
 
           {/* Date & Time */}
 
-          <div className="space-y-6">
+          <div className="space-y-4">
             <Card shadow="lg" className="rounded-3xl">
-              <Card.Content className="p-7">
+              <Card.Content className="p-1">
                 <div className="flex items-center gap-4">
-                  <div className="w-14 h-14 rounded-2xl bg-red-50 flex items-center justify-center">
+                  <div className="w-12 h-12 rounded-2xl bg-red-50 flex items-center justify-center">
+                    <Phone className="text-red-600" size={26} />
+                  </div>
+
+                  <div>
+                    <p className="text-xs uppercase tracking-widest text-default-500">
+                      Phone Number
+                    </p>
+
+                    <h3 className="text-xl font-bold mt-1">
+                      {request?.phone || "01794122785"}
+                    </h3>
+                  </div>
+                </div>
+              </Card.Content>
+            </Card>
+            <Card shadow="lg" className="rounded-3xl">
+              <Card.Content className="p-1">
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-2xl bg-red-50 flex items-center justify-center">
                     <CalendarDays className="text-red-600" size={26} />
                   </div>
 
@@ -224,7 +245,7 @@ export default function RequestDetailsPage() {
                       Donation Date
                     </p>
 
-                    <h3 className="text-2xl font-bold mt-1">
+                    <h3 className="text-xl font-bold mt-1">
                       {request.donationDate}
                     </h3>
                   </div>
@@ -233,9 +254,9 @@ export default function RequestDetailsPage() {
             </Card>
 
             <Card shadow="lg" className="rounded-3xl">
-              <Card.Content className="p-7">
+              <Card.Content className="p-1">
                 <div className="flex items-center gap-4">
-                  <div className="w-14 h-14 rounded-2xl bg-blue-50 flex items-center justify-center">
+                  <div className="w-12 h-12 rounded-2xl bg-blue-50 flex items-center justify-center">
                     <Clock3 className="text-blue-600" size={26} />
                   </div>
 
@@ -244,7 +265,7 @@ export default function RequestDetailsPage() {
                       Donation Time
                     </p>
 
-                    <h3 className="text-2xl font-bold mt-1">
+                    <h3 className="text-xl font-bold mt-1">
                       {request.donationTime}
                     </h3>
                   </div>

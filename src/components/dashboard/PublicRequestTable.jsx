@@ -69,11 +69,8 @@ const PublicRequestTable = ({ donationRequests }) => {
               <div className="flex justify-between">
                 <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                   <div>
-                    <p># {index + 1}</p>
-                    <div className="flex gap-2">
-                      <h2 className="text-lg font-semibold text-slate-900">
-                        {request.recipientName}
-                      </h2>
+                    <div className="flex gap-8">
+                      <p># {index + 1}</p>{" "}
                       <Chip
                         color={statusColor[request.status]}
                         variant="primary"
@@ -81,6 +78,11 @@ const PublicRequestTable = ({ donationRequests }) => {
                       >
                         {request.status}
                       </Chip>
+                    </div>
+                    <div>
+                      <h2 className="text-lg font-semibold text-slate-900">
+                        {request.recipientName}
+                      </h2>
                     </div>
                     <p className="text-sm text-default-500">
                       {request.recipientDistrict}
