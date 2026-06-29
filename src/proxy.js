@@ -1,21 +1,65 @@
 import { NextResponse } from "next/server";
-import { headers } from "next/headers";
-import { auth } from "./lib/auth";
+import { auth } from "@/lib/auth";
 
 export async function proxy(request) {
   const session = await auth.api.getSession({
-    headers: await headers(),
+    headers: request.headers,
   });
 
-  if (!session) {
+  const user = session?.user;
+  const pathname = request.nextUrl.pathname;
+
+  // Public Routes
+  const publicRoutes = [
+    "/",
+    "/login",
+    "/register",
+    "/search",
+    "/donation-requests",
+  ];
+
+  // Public Route হলে যেতে দিবে
+  if (publicRoutes.includes(pathname)) {
+    return NextResponse.next();
+  }
+
+  // Login না থাকলে
+  if (!user) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
+
+  // Login থাকা অবস্থায় login/register এ গেলে dashboard এ পাঠাবে
+  if (pathname === "/login" || pathname === "/register") {
+    return NextResponse.redirect(new URL(`/dashboard/${user.role}`, request.url));
+  }
+
+  // Admin Route
+  if (pathname.startsWith("/dashboard/admin") && user.role !== "admin") {
+    return NextResponse.redirect(
+      new URL(`/dashboard/${user.role}`, request.url),
+    );
+  }
+
+  // Donor Route
+  if (pathname.startsWith("/dashboard/donor") && user.role !== "donor") {
+    return NextResponse.redirect(
+      new URL(`/dashboard/${user.role}`, request.url),
+    );
+  }
+
+  // Volunteer Route
+  if (
+    pathname.startsWith("/dashboard/volunteer") &&
+    user.role !== "volunteer"
+  ) {
+    return NextResponse.redirect(
+      new URL(`/dashboard/${user.role}`, request.url),
+    );
+  }
+
+  return NextResponse.next();
 }
 
 export const config = {
-  matcher: [
-    "/profile",
-    "/donation-requests/:path",
-    "/dashboard",
-  ],
+  matcher: ["/dashboard/:path*", "/login", "/register", "/donation-requests/:path*"],
 };

@@ -14,14 +14,24 @@ const DonorDashboard = async () => {
     const user = session?.user;
     if (!user?.id) return;
   
+  
     const donationRequests = await getMyDonationRequests(user.id);
     const requests = donationRequests?.slice(0, 3);
     return (
       <div>
-        <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
+        <div>
+          <h1 className="text-4xl font-black">
+            Hello, <span className="text-danger">{user.name}!</span>
+          </h1>
+
+          <p className="text-default-500 mt-2">
+            Manage your activities and help save lives today.
+          </p>
+        </div>
+        <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4 mt-5">
           <StatsCard
             title="Total Donations"
-            value="8"
+            value={donationRequests?.length}
             subtitle="Keep it up! 🎉"
             icon={<Droplets size={30} />}
             iconBg="bg-red-100"
@@ -39,7 +49,7 @@ const DonorDashboard = async () => {
 
           <StatsCard
             title="Blood Group"
-            value="A+"
+            value={user.bloodGroup}
             subtitle="Universal Helper"
             icon={<BadgePlus size={30} />}
             iconBg="bg-yellow-100"
@@ -48,15 +58,18 @@ const DonorDashboard = async () => {
 
           <StatsCard
             title="Member Since"
-            value="Jan 2024"
-            subtitle="1+ year with us"
+            value={new Date(user?.createdAt).toLocaleDateString("en-US", {
+              month: "short",
+              day: "numeric",
+              year: "numeric",
+            })}
             icon={<CalendarDays size={30} />}
             iconBg="bg-green-100"
             iconColor="text-green-500"
           />
         </div>
 
-        <div className="mt-10 ">
+        <div className="mt-10 min-h-screen">
           {donationRequests?.length > 0 ? (
             <RequestTable donationRequests={requests} />
           ) : (
@@ -70,10 +83,10 @@ const DonorDashboard = async () => {
               </h3>
             </div>
           )}
-          <div className='flex justify-center'>
+          <div className="flex justify-center">
             <Link href={`/dashboard/${user.role}/my-requests`}>
               <Button className="mt-10 h-14 rounded-2xl bg-red-600 hover:bg-red-700 px-10 text-sm font-bold uppercase tracking-wider text-white shadow-lg">
-                View All Requests
+               <Droplets/> View All Requests
               </Button>
             </Link>
           </div>

@@ -8,7 +8,7 @@ import { authClient } from "@/lib/auth-client";
 import { BiDonateBlood } from "react-icons/bi";
 import { FaRegCircleUser } from "react-icons/fa6";
 import { LuLogOut, LuPencilLine } from "react-icons/lu";
-import { usePathname } from "next/navigation";
+import { redirect, usePathname } from "next/navigation";
 import { Droplets, Users } from "lucide-react";
 import Loading from "@/app/loading";
 
@@ -16,6 +16,7 @@ export function DashboardSidebar() {
   const pathName = usePathname();
   const handleSignOut = async () => {
     await authClient.signOut();
+    redirect("/");
   };
 
   const { data: session } = authClient.useSession();

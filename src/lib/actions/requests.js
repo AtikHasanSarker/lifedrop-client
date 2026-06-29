@@ -1,6 +1,6 @@
 "use server";
 
-const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:5000";
+const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL;
 
 export const getDonationRequests = async () => {
   const res = await fetch(`${baseUrl}/donation-requests`);
@@ -42,12 +42,6 @@ export const deleteDonationRequest = async (id) => {
   return res.json();
 };
 
-export const deleteUser = async (id) => {
-  const res = await fetch(`${baseUrl}/all-users/${id}`, {
-    method: "DELETE",
-  });
-  return res.json();
-};
 
 export const updateUser = async (id, data) => {
   const res = await fetch(`${baseUrl}/users/${id}`, {

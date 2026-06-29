@@ -10,11 +10,11 @@ export default async function DashboardLayout({ children }) {
   const user = session?.user;
   
   return (
-    <div className="min-h-screen flex gap-1 md:gap-3 w-full bg-background">
+    <div className="h-screen flex gap-1 md:gap-3 w-full bg-background overflow-hidden">
       <div>
         <DashboardSidebar />
       </div>
-      <main className="flex-1 w-full p-4">
+      <main className="flex-1 h-screen w-full p-4 overflow-y-auto">
         <div className="flex justify-between mb-10">
           <div>
             <h2 className="text-2xl font-bold">Dashboard</h2>

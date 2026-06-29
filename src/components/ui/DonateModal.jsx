@@ -14,7 +14,7 @@ export function DonateModal({id, status}) {
     <div className="flex flex-wrap gap-4">
       <Modal>
         <Button
-        isDisabled={status !== "pending"}
+        isDisabled={status !== "pending" || user?.status !== "active"}
           size="lg"
           radius="lg"
           className="bg-red-600 w-full md:w-auto px-14 h-18 text-2xl font-semibold shadow-xl shadow-red-500/20 hover:scale-[1.03] transition-all duration-300"

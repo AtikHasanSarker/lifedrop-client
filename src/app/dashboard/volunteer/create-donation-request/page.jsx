@@ -1,12 +1,17 @@
 import DonationRequestForm from "@/components/dashboard/DonationRequestForm";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
+import { redirect } from "next/navigation";
 
 export default async function CreateDonationRequest() {
   const session = await auth.api.getSession({
       headers: await headers(),
     });
   const user = session?.user;
+
+  if (user.status !== "active") {
+    redirect(`/dashboard/${user.role}`);
+  }
 
   return (
     <section className="min-h-screen bg-[#FAFAFA] p-6 lg:p-10">
