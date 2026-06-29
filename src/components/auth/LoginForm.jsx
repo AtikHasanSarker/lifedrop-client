@@ -46,12 +46,12 @@ export default function LoginForm() {
 
 
   return (
-    <div className="w-full max-w-[540px] rounded-[32px] border border-white/40 bg-white/80 p-10 shadow-[0_20px_80px_rgba(0,0,0,.08)] backdrop-blur-xl">
-      <h2 className="text-3xl font-bold text-gray-900 text-center">Welcome Back 👋</h2>
+    <div className="w-full max-w-xs sm:max-w-sm lg:max-w-[540px] rounded-2xl sm:rounded-3xl lg:rounded-[32px] border border-white/40 bg-white/80 p-5 sm:p-8 lg:p-10 shadow-[0_20px_80px_rgba(0,0,0,.08)] backdrop-blur-xl">
+      <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 text-center">Welcome Back 👋</h2>
 
-      <p className="mt-3 text-gray-500 text-center">Login to continue using LifeDrop.</p>
+      <p className="mt-2 sm:mt-3 text-sm sm:text-base text-gray-500 text-center">Login to continue using LifeDrop.</p>
 
-      <Form onSubmit={onSubmit} className="mt-10 space-y-4">
+      <Form onSubmit={onSubmit} className="mt-6 sm:mt-8 lg:mt-10 space-y-3 sm:space-y-4">
         <TextField
           isRequired
           name="email"
@@ -63,9 +63,9 @@ export default function LoginForm() {
             return null;
           }}
         >
-          <Label className="font-semibold">Email</Label>
-          <Input placeholder="john@example.com" />
-          <FieldError />
+          <Label className="font-semibold text-sm sm:text-base">Email</Label>
+          <Input placeholder="john@example.com" className="text-sm sm:text-base" />
+          <FieldError className="text-xs sm:text-sm" />
         </TextField>
 
         <TextField
@@ -74,10 +74,10 @@ export default function LoginForm() {
           name="password"
           type="password"
         >
-          <Label className="font-semibold">Password</Label>
+          <Label className="font-semibold text-sm sm:text-base">Password</Label>
           <InputGroup>
             <InputGroup.Input
-              className="w-full max-w-full"
+              className="w-full max-w-full text-sm sm:text-base"
               type={isVisible ? "text" : "password"}
               placeholder="Enter your password"
             />
@@ -90,20 +90,20 @@ export default function LoginForm() {
                 onPress={() => setIsVisible(!isVisible)}
               >
                 {isVisible ? (
-                  <MdOutlineRemoveRedEye className="size-4" />
+                  <MdOutlineRemoveRedEye className="size-3 sm:size-4" />
                 ) : (
-                  <FaRegEyeSlash className="size-4" />
+                  <FaRegEyeSlash className="size-3 sm:size-4" />
                 )}
               </Button>
             </InputGroup.Suffix>
           </InputGroup>
-          <Description>
+          <Description className="text-xs sm:text-sm">
             Must be at least 8 characters with 1 uppercase and 1 number
           </Description>
-          <FieldError />
+          <FieldError className="text-xs sm:text-sm" />
         </TextField>
 
-        <p className="text-right text-red-600 font-semibold text-sm">
+        <p className="text-right text-red-600 font-semibold text-xs sm:text-sm">
           Forgot Password?
         </p>
 
@@ -112,29 +112,17 @@ export default function LoginForm() {
           color="danger"
           radius="full"
           size="lg"
-          className=" h-14
-    w-full
-    bg-linear-to-r
-    from-red-600
-    to-rose-500
-    text-base
-    font-semibold
-    shadow-lg
-    transition-all
-    duration-300
-    hover:scale-[1.02]
-    hover:shadow-red-300
-  "
-          endContent={<ArrowRight size={18} />}
+          className="h-12 sm:h-13 lg:h-14 w-full bg-linear-to-r from-red-600 to-rose-500 text-sm sm:text-base font-semibold shadow-lg transition-all duration-300 hover:scale-[1.02] hover:shadow-red-300"
+          endContent={<ArrowRight size={16} className="sm:size-[18px]" />}
         >
           Login
         </Button>
 
-        <p className="text-center text-gray-500">
+        <p className="text-center text-gray-500 text-xs sm:text-sm">
           Don't have an account?
           <Link
             href="/signup"
-            className="ml-2 font-semibold text-red-600 hover:text-red-700"
+            className="block sm:inline ml-0 sm:ml-2 mt-1 sm:mt-0 font-semibold text-red-600 hover:text-red-700"
           >
             Register Now
           </Link>

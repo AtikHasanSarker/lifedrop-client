@@ -61,24 +61,20 @@ export default function RegisterForm() {
 
     const formData = new FormData(e.currentTarget);
     const user = Object.fromEntries(formData.entries());
-    console.log(user);
-    // const image = await imageUpload(user.image);
-    // console.log(image);
+    const image = await imageUpload(user.image);
 
     const { data, error } = await authClient.signUp.email({
       name: user.name,
       email: user.email,
       password: user.password,
       image: user.imageUrl,
-      // image: image.url,
+      image: image.url,
       phone: user.phone,
       bloodGroup: user.bloodGroup,
       district: user.district,
       upazila: user.upazila,
     });
       
-
-
     if (error) {
       toast.error("Registration failed! ");
     } else {
@@ -106,18 +102,11 @@ export default function RegisterForm() {
       {/* Form */}
 
       <form onSubmit={onSubmit} className="mt-10 space-y-6">
-        {/* <UploadInput
+        <UploadInput
         name="image"
           preview={preview}
           onChange={handleImage}
           onRemove={removeImage}
-        /> */}
-        <Input
-          required
-          label="Profile Picture"
-          type={"url"}
-          name="imageUrl"
-          placeholder="https://example.com/image.jpg"
         />
 
         <Input

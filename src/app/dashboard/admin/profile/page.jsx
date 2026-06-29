@@ -19,6 +19,7 @@ import { districts, districtUpazilas } from "@/app/data/DistrictUpazilas";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import Loading from "@/app/loading";
+import { imageUpload } from "@/lib/actions/imgUpload";
 
 export default function ProfilePage() {
   const router = useRouter();
@@ -35,6 +36,10 @@ export default function ProfilePage() {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const updatedData = Object.fromEntries(formData.entries());
+    if (updatedData.image) {
+      const image = await imageUpload(updatedData.image);
+      updatedData.image = image.url;
+    }
     const data = await authClient.updateUser(updatedData);
     if (data) {
       toast.success("Profile updated successfully");
@@ -219,12 +224,14 @@ export default function ProfilePage() {
 
                 {/* Profile Picture  */}
                 <Input
-                  label="Profile Picture"
                   name="image"
-                  defaultValue={user.image}
-                  readOnly={!isEditing}
-                  variant="bordered"
                   startContent={<CircleUser size={18} color="purple" />}
+                  type="file"
+                  label="Profile Picture"
+                  labelPlacement="outside"
+                  disabled={!isEditing}
+                  variant="bordered"
+                  accept="image/*"
                 />
               </div>
               {isEditing && (

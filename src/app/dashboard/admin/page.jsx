@@ -6,43 +6,37 @@ import { Droplets, DollarSign, Users, TrendingUp } from "lucide-react";
 import { authClient } from "@/lib/auth-client";
 
 export default function AdminDashboard() {
-    const { data: session } = authClient.useSession();
-    const user = session?.user;
+  
   const [stats, setStats] = useState({
-    donors: 0,
-    requests: 0,
-    totalFunding: 0,
+  donors: 0,
+  requests: 0,
+  totalFunding: 0,
   });
-
   const [loading, setLoading] = useState(true);
+  const { data: session } = authClient.useSession();
+  
+  const user = session?.user;
   const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL;
 
   useEffect(() => {
     async function loadData() {
       try {
-        // Example APIs
-        const [donorRes, requestRes, fundRes] = await Promise.all([
-          fetch(`${baseUrl}/users`),
-          fetch(`${baseUrl}/donation-requests`),
-          fetch(`${baseUrl}/funding`),
-        ]);
+        const { data: tokenData } = await authClient.token();
+        const headers = {
+          Authorization: `Bearer ${tokenData.token}`,
+        };
+        const res = await fetch(`${baseUrl}/dashboard-stats`, {
+          headers
+        });
 
-        const donors = await donorRes.json();
-        const requests = await requestRes.json();
-        const funds = await fundRes.json();
-
-        const totalFunding = funds.reduce(
-          (sum, item) => sum + Number(item.amount),
-          0,
-        );
+        const stats = await res.json();
 
         setStats({
-          donors: donors.length,
-          requests: requests.length,
-          totalFunding,
+          donors: stats.totalDonors,
+          requests: stats.totalRequests,
+          totalFunding: stats.totalFunding,
         });
-      } catch (error) {
-        console.log(error);
+
       } finally {
         setLoading(false);
       }
@@ -79,7 +73,7 @@ export default function AdminDashboard() {
     <section className="space-y-8">
       <div>
         <h1 className="text-4xl font-black">
-          Hello, <span className="text-danger">{user.name}!</span>
+          Hello, <span className="text-danger">{user?.name}!</span>
         </h1>
 
         <p className="text-default-500 mt-2">

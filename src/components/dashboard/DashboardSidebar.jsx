@@ -172,7 +172,7 @@ export function DashboardSidebar() {
         {navContent}
       </aside>
       <Drawer>
-        <Button variant="secondary" className="lg:hidden mt-5 ml-2">
+        <Button variant="secondary" className="lg:hidden fixed top-5 left-5 z-20">
           <LayoutSideContentLeft />
         </Button>
         <Drawer.Backdrop>
