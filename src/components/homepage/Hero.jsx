@@ -55,7 +55,7 @@ export default function Hero() {
             {/* Buttons */}
             <div className="mt-10 flex flex-wrap gap-4">
               <Link
-                href="/register"
+                href="/signup"
                 className="group flex items-center gap-2 rounded-full bg-red-600 px-8 py-4 font-semibold text-white transition-all duration-300 hover:-translate-y-1 hover:scale-105 hover:bg-red-700 hover:shadow-[0_20px_40px_rgba(220,38,38,0.35)]"
               >
                 Join As Donor
@@ -66,7 +66,7 @@ export default function Hero() {
               </Link>
 
               <Link
-                href="/search"
+                href="/search-donor"
                 className="flex items-center gap-2 rounded-full border-2 border-red-600 px-8 py-4 font-semibold text-red-600 transition-all duration-300 hover:-translate-y-1 hover:bg-red-50 hover:shadow-lg"
               >
                 <Search size={18} />

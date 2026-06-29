@@ -43,7 +43,7 @@ export default function BecomeDonor() {
 
             <div className="mt-10 flex flex-wrap gap-5">
               <Link
-                href="/register"
+                href="//signup"
                 className="group inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 font-semibold text-red-600 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl"
               >
                 Join As Donor

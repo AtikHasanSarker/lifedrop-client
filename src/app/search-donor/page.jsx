@@ -91,7 +91,7 @@ const SearchPage = () => {
               help save a life.
             </p>
           </div>
-          <div className="container mx-auto px-4 mt-6">
+          <div className="max-w-5xl mx-auto px-4 mt-6">
             <form onSubmit={onSubmit} className="relative p-6 lg:p-8">
               <div className="grid grid-cols-1 md:grid-cols-2 w-full lg:grid-cols-4 gap-6 justify-between items-end">
                 {/* Blood Group */}

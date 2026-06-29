@@ -6,7 +6,6 @@ import { useState } from "react";
 import {
   Input,
   Button,
-  Separator,
   FieldError,
   Description,
   InputGroup,
@@ -18,7 +17,6 @@ import {
 import {  ArrowRight } from "lucide-react";
 import { FaRegEyeSlash } from "react-icons/fa6";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
-import { FcGoogle } from "react-icons/fc";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { authClient } from "@/lib/auth-client";

@@ -20,7 +20,7 @@ const DonorDashboard = async () => {
      ? donationRequests.slice(0, 3)
      : [];
     return (
-      <div>
+      <div className='px-6'>
         <div>
           <h1 className="text-4xl font-black">
             Hello, <span className="text-danger">{user.name}!</span>

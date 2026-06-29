@@ -9,7 +9,7 @@ export default function LoginPage() {
 
       <div className="absolute right-0 bottom-0 h-[280px] w-[280px] rounded-full bg-pink-100 blur-[100px] sm:h-[350px] sm:w-[350px] sm:blur-[110px] lg:h-[450px] lg:w-[450px] lg:blur-[120px]" />
 
-      <div className="container mx-auto min-h-screen px-4 py-10 sm:px-6 sm:py-16 lg:px-12 lg:py-20">
+      <div className="container mx-auto md:min-h-screen px-4 py-10 sm:px-6 sm:py-16 lg:px-12 lg:py-20">
         <div className="grid min-h-screen items-center gap-8 sm:gap-12 lg:gap-16 lg:grid-cols-2">
           {/* LEFT */}
 
@@ -36,7 +36,7 @@ export default function LoginPage() {
 
           {/* RIGHT */}
 
-          <div className="flex items-center justify-center w-full lg:justify-end">
+          <div className="flex mx-auto w-full lg:justify-end">
             <LoginForm />
           </div>
         </div>

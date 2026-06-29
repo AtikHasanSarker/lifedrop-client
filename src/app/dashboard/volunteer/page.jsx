@@ -77,7 +77,7 @@ const VolunteerDashboard = async () => {
         />
       </div>
 
-      <div className="mt-10 min-h-screen">
+      <div className="mt-10 min-h-screen pb-10">
         {donationRequests?.length > 0 ? (
           <RequestTable donationRequests={requests} />
         ) : (

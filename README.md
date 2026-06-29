@@ -4,9 +4,7 @@ LifeDrop is a modern blood donation platform that connects blood donors with peo
 
 ## 🌐 Live Website
 
-Frontend: https://your-client-site.vercel.app
-
-Backend: https://your-server-site.vercel.app
+Frontend: https://lifedrop-client-cyan.vercel.app
 
 ---
 
@@ -124,87 +122,35 @@ react-dom
 react-hook-form
 react-hot-toast
 tailwindcss
-zod
 lottie-react
 ```
 
 ### Server
 
 ```bash
-bcryptjs
 cookie-parser
 cors
 dotenv
 express
 jsonwebtoken
 mongodb
-mongoose
 stripe
 ```
 
 
----
-
-# 🚀 Installation
-
-## Clone Repository
-
-```bash
-git clone https://github.com/your-username/lifedrop-client.git
-```
-
-```bash
-git clone https://github.com/your-username/lifedrop-server.git
-```
-
----
-
----
-
-## Environment Variables
-
-### Client (.env.local)
-
-```env
-NEXT_PUBLIC_API_URL=
-NEXT_PUBLIC_IMGBB_API_KEY=
-```
-
-### Server (.env)
-
-```env
-PORT=
-MONGODB_URI=
-JWT_SECRET=
-STRIPE_SECRET_KEY=
-CLIENT_URL=
-```
-
----
-
-# 👨‍💻 Admin Credentials
-
-Email:
-
-```
-admin@example.com
-```
-
-Password
-
-```
-********
-```
-
----
-
 # 📸 Screenshots
 
 - Home Page
+![alt text](image.png)
 - Dashboard
+![alt text](image-3.png)
 - Search Donor
+
+
 - Donation Details
+![alt text](image-1.png)
 - Profile Page
+![alt text](image-2.png)
 
 ---
 

@@ -70,7 +70,7 @@ export default function AdminDashboard() {
   ];
 
   return (
-    <section className="space-y-8">
+    <section className="space-y-8 px-6">
       <div>
         <h1 className="text-4xl font-black">
           Hello, <span className="text-danger">{user?.name}!</span>
