@@ -1,6 +1,7 @@
 "use client";
 import { districts, districtUpazilas } from "@/app/data/DistrictUpazilas";
 import Select from "@/components/ui/Select";
+import { authClient } from "@/lib/auth-client";
 import {
   CalendarDays,
   Clock3,
@@ -35,6 +36,7 @@ const EditDonationRequestForm = ({ user, id, donationRequest }) => {
   const onSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
+    const { data: tokenData } = await authClient.token();
     const requestData = Object.fromEntries(formData.entries());
 
     const res = await fetch(
@@ -43,7 +45,7 @@ const EditDonationRequestForm = ({ user, id, donationRequest }) => {
         method: "PATCH",
         headers: {
           "content-type": "application/json",
-          //  authorization: `Bearer ${tokenData?.token}`,
+           authorization: `Bearer ${tokenData?.token}`,
         },
         body: JSON.stringify(requestData),
       },

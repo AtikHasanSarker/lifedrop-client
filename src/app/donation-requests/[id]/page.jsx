@@ -25,8 +25,13 @@ export default function RequestDetailsPage() {
   useEffect(() => {
     if (!id) return;
     const fetchRequest = async () => {
+      const { data: tokenData } = await authClient.token();
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}/donation-requests/${id}`,
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/donation-requests/${id}`,{
+          headers: {
+            Authorization: `Bearer ${tokenData?.token}`,
+          },
+        }
       );
       const data = await res.json();
       setRequest(data);
@@ -268,7 +273,7 @@ export default function RequestDetailsPage() {
 
               <div className="rounded-2xl bg-linear-to-r from-red-50 to-rose-50 border border-red-100 p-6">
                 <p className="italic text-default-700 leading-8 text-lg">
-                  "{request.requestMessage}"
+                  {request.requestMessage}
                 </p>
               </div>
             </Card.Content>

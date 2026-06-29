@@ -1,16 +1,17 @@
-import { updateUser } from "@/lib/actions/requests";
 import AllUsersTable from "@/components/dashboard/AllUsersTable";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 
 const UsersManagementPage = async () => {
-  const session = await auth.api.getSession({
-      headers: await headers(),
-    });;
-  const user = session?.user;
+  const { token } = await auth.api.getToken({
+    headers: await headers(),
+  });
 
   const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/users`, {
     cache: "no-store",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   });
 
   const allUsers = await res.json();

@@ -20,14 +20,14 @@ const RequestTable = ({ donationRequests }) => {
       status === "done" || status === "canceled" ? { status } : null;
 
     const data = await updatePublicRequest(id, payload);
-    console.log(data);
     if (data.modifiedCount > 0) {
       router.refresh();
     }
   };
 
   const handleDelete = async (id) => {
-    const data = await deleteDonationRequest(id);
+    const { data: tokenData } = await authClient.token();
+    const data = await deleteDonationRequest(id, tokenData?.token);
 
     if (data.deletedCount > 0) {
       toast.success("Donation request deleted successfully");

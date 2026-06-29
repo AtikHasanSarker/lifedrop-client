@@ -14,6 +14,7 @@ import {
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { authClient } from "@/lib/auth-client";
 
 const PublicRequestTable = ({ donationRequests }) => {
   const router = useRouter();
@@ -25,10 +26,11 @@ const PublicRequestTable = ({ donationRequests }) => {
   };
 
   const handleUpdateRequest = async (id, status) => {
+    const { data: tokenData } = await authClient.token();
     const payload =
       status === "done" || status === "canceled" ? { status } : null;
 
-    const data = await updatePublicRequest(id, payload);
+    const data = await updatePublicRequest(id, payload, tokenData?.token);
     console.log(data);
     if (data.modifiedCount > 0) {
       router.refresh();
@@ -36,7 +38,8 @@ const PublicRequestTable = ({ donationRequests }) => {
   };
 
   const handleDelete = async (id) => {
-    const data = await deleteDonationRequest(id);
+    const { data: tokenData } = await authClient.token();
+    const data = await deleteDonationRequest(id, tokenData?.token);
 
     if (data.deletedCount > 0) {
       toast.success("Donation request deleted successfully");

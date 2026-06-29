@@ -9,13 +9,13 @@ const AllUsersTable = ({ allUsers }) => {
     const router = useRouter();
 
     const handleUpdateUser = async (id, info) => {
+      const { data: tokenData } = await authClient.token();
       const payload =
         info === "blocked" || info === "active"
           ? { status: info }
           : { role: info };
 
-      const data = await updateUser(id, payload);
-      console.log(data);
+      const data = await updateUser(id, payload, tokenData?.token);
 
       if (data.modifiedCount > 0) {
         router.refresh();

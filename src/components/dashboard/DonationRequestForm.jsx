@@ -1,6 +1,7 @@
 "use client";
 import { districts, districtUpazilas } from "@/app/data/DistrictUpazilas";
 import Select from "@/components/ui/Select";
+import { authClient } from "@/lib/auth-client";
 import {
   CalendarDays,
   Clock3,
@@ -21,6 +22,7 @@ const DonationRequestForm = ({ user }) => {
   const onSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
+    const { data: tokenData } = await authClient.token()
     const requestData = Object.fromEntries(formData.entries());
     requestData.userId = user?.id;
     requestData.status = "pending";
@@ -31,13 +33,12 @@ const DonationRequestForm = ({ user }) => {
         method: "POST",
         headers: {
           "content-type": "application/json",
-          //  authorization: `Bearer ${tokenData?.token}`,
+           authorization: `Bearer ${tokenData?.token}`,
         },
         body: JSON.stringify(requestData),
       },
     );
     const data = await res.json();
-    console.log(data);
 
     if (data.acknowledged) {
       toast.success("Request submitted successfully");

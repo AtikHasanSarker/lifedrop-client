@@ -1,6 +1,5 @@
 import {
   Table,
-  Card,
   Chip,
 } from "@heroui/react";
 

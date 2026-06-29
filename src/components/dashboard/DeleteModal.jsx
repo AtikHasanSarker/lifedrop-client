@@ -1,12 +1,14 @@
 "use client";
 
 import { deleteDonationRequest } from "@/lib/actions/requests";
+import { authClient } from "@/lib/auth-client";
 import { AlertDialog, Button } from "@heroui/react";
 import { Trash2 } from "lucide-react";
 
 export function DeleteModal() {
     const handleDelete = async (id) => {
-      const data = await deleteDonationRequest(id);
+      const { data: tokenData } = await authClient.token();
+      const data = await deleteDonationRequest(id, tokenData?.token);
 
       if (data.deletedCount > 0) {
         toast.success("Donation request deleted successfully");

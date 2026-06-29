@@ -1,6 +1,8 @@
 import FundingTable from "@/components/ui/FundingTable";
 import GiveFundModal from "@/components/ui/GiveFundModal";
 import { getFunding } from "@/lib/actions/requests";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 
 export const metadata = {
   title: "Funding – LifeDrop",
@@ -9,7 +11,10 @@ export const metadata = {
 };
 
 export default async function FundingPage() {
-  const funds = await getFunding()
+   const { token } = await auth.api.getToken({
+     headers: await headers(),
+   });
+  const funds = await getFunding(token);
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
