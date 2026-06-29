@@ -181,7 +181,7 @@ const SearchPage = () => {
                   shadow="sm"
                   className="rounded-[36px] border-2 border-dashed border-danger-100 bg-gradient-to-br from-red-50 via-white to-white"
                 >
-                  <Card.Description className="py-10 text-center">
+                  <Card.Content className="py-10 text-center">
                     <div className="relative mx-auto w-fit">
                       <div className="absolute inset-0 rounded-full bg-red-300/30 blur-2xl animate-pulse" />
 
@@ -204,7 +204,7 @@ const SearchPage = () => {
                     <div className="mt-5 inline-flex items-center gap-2 rounded-full bg-danger-50 px-6 py-3 text-danger font-semibold">
                       ❤️ Every donation has the power to save a life.
                     </div>
-                  </Card.Description>
+                  </Card.Content>
                 </Card>
               </section>
             )}

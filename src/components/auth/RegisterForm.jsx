@@ -9,8 +9,22 @@ import { districts, districtUpazilas } from "@/app/data/DistrictUpazilas";
 import toast from "react-hot-toast";
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
+import UploadInput from "../ui/UploadInput";
+import { imageUpload } from "@/lib/actions/imgUpload";
 
 export default function RegisterForm() {
+  const [preview, setPreview] = useState(null);
+
+  const handleImage = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    setPreview(URL.createObjectURL(file));
+  };
+
+  const removeImage = () => {
+    setPreview(null);
+  };
+
   const router = useRouter();
   const [selectedDistrict, setSelectedDistrict] = useState("");
   const [password, setPassword] = useState("");
@@ -47,12 +61,16 @@ export default function RegisterForm() {
 
     const formData = new FormData(e.currentTarget);
     const user = Object.fromEntries(formData.entries());
+    console.log(user);
+    // const image = await imageUpload(user.image);
+    // console.log(image);
 
     const { data, error } = await authClient.signUp.email({
       name: user.name,
       email: user.email,
       password: user.password,
       image: user.imageUrl,
+      // image: image.url,
       phone: user.phone,
       bloodGroup: user.bloodGroup,
       district: user.district,
@@ -60,7 +78,6 @@ export default function RegisterForm() {
     });
       
 
-    console.log(data);
 
     if (error) {
       toast.error("Registration failed! ");
@@ -89,6 +106,12 @@ export default function RegisterForm() {
       {/* Form */}
 
       <form onSubmit={onSubmit} className="mt-10 space-y-6">
+        {/* <UploadInput
+        name="image"
+          preview={preview}
+          onChange={handleImage}
+          onRemove={removeImage}
+        /> */}
         <Input
           required
           label="Profile Picture"

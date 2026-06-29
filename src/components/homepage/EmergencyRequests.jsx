@@ -9,38 +9,22 @@ import {
   MapPin,
   ArrowRight,
 } from "lucide-react";
+import { getDonationRequests } from "@/lib/actions/requests";
+import { useEffect, useState } from "react";
 
-const requests = [
-  {
-    id: 1,
-    recipient: "Rahim Ahmed",
-    blood: "A+",
-    district: "Dhaka",
-    hospital: "Dhaka Medical College",
-    date: "25 June 2026",
-    time: "10:00 AM",
-  },
-  {
-    id: 2,
-    recipient: "Sadia Islam",
-    blood: "O-",
-    district: "Chattogram",
-    hospital: "CMCH",
-    date: "26 June 2026",
-    time: "09:30 AM",
-  },
-  {
-    id: 3,
-    recipient: "Nafis Hasan",
-    blood: "B+",
-    district: "Khulna",
-    hospital: "Khulna Medical",
-    date: "27 June 2026",
-    time: "11:15 AM",
-  },
-];
 
 export default function EmergencyRequests() {
+const [requests, setRequests] = useState([]);
+
+useEffect(() => {
+  async function loadRequests() {
+    const donationRequests = await getDonationRequests();
+    setRequests(donationRequests.slice(0, 3));
+  }
+
+  loadRequests();
+}, []);
+
   return (
     <section className="bg-[#FFFDFD] pt-16 pb-40">
       <div className="container mx-auto px-6 lg:px-10">
@@ -67,7 +51,7 @@ export default function EmergencyRequests() {
         <div className="mt-20 grid gap-8 lg:grid-cols-3">
           {requests.map((item, index) => (
             <motion.div
-              key={item.id}
+              key={index}
               initial={{
                 opacity: 0,
                 y: 40,
@@ -89,9 +73,11 @@ export default function EmergencyRequests() {
             >
               {/* Top */}
 
-              <div className="relative h-28 bg-gradient-to-r from-red-600 via-red-500 to-pink-500">
+              <div className="relative h-28 bg-linear-to-r from-red-600 via-red-500 to-pink-500">
                 <div className="absolute right-6 top-6 rounded-full bg-white/20 px-5 py-2 backdrop-blur-lg">
-                  <span className="font-bold text-white">{item.blood}</span>
+                  <span className="font-bold text-white">
+                    {item.bloodGroup}
+                  </span>
                 </div>
 
                 <div className="absolute bottom-0 left-8 translate-y-1/2">
@@ -105,37 +91,35 @@ export default function EmergencyRequests() {
 
               <div className="px-8 pb-8 pt-14">
                 <h3 className="text-2xl font-bold text-gray-900">
-                  {item.recipient}
+                  {item.recipientName}
                 </h3>
 
                 <div className="mt-6 space-y-4">
                   <div className="flex items-center gap-3 text-gray-500">
                     <MapPin size={18} className="text-red-500" />
 
-                    {item.district}
+                    {item.recipientDistrict}
                   </div>
 
                   <div className="flex items-center gap-3 text-gray-500">
-                    🏥 {item.hospital}
+                    🏥 {item.hospitalName}
                   </div>
 
                   <div className="flex items-center gap-3 text-gray-500">
                     <CalendarDays size={18} className="text-red-500" />
 
-                    {item.date}
+                    {item.donationDate}
                   </div>
 
                   <div className="flex items-center gap-3 text-gray-500">
                     <Clock3 size={18} className="text-red-500" />
 
-                    {item.time}
+                    {item.donationTime}
                   </div>
                 </div>
 
-                {/* Button */}
-
                 <Link
-                  href={`/donation-request/${item.id}`}
+                  href={`/donation-request/${item._id}`}
                   className="mt-8 inline-flex items-center gap-2 font-semibold text-red-600 transition group-hover:gap-3"
                 >
                   View Details
@@ -149,8 +133,6 @@ export default function EmergencyRequests() {
             </motion.div>
           ))}
         </div>
-
-        {/* Bottom Button */}
 
         <div className="mt-16 text-center">
           <Link

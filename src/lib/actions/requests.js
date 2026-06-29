@@ -15,14 +15,10 @@ export const getDonationRequestById = async (id, token) => {
   return res.json();
 };
 
-export const getMyDonationRequests = async (id, token) => {
-  const res = await fetch(`${baseUrl}/my-donation-requests/${id}`,{
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+export const getMyDonationRequests = async (userId) => {
+  const res = await fetch(`${baseUrl}/user-donation-requests/${userId}`);
   return res.json();
-}
+};
 
 export const getFunding = async (token) => {
   const res = await fetch(`${baseUrl}/funding`,{

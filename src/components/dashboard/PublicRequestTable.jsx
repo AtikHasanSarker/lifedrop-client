@@ -31,7 +31,6 @@ const PublicRequestTable = ({ donationRequests }) => {
       status === "done" || status === "canceled" ? { status } : null;
 
     const data = await updatePublicRequest(id, payload, tokenData?.token);
-    console.log(data);
     if (data.modifiedCount > 0) {
       router.refresh();
     }

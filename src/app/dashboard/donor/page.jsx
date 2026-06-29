@@ -14,9 +14,11 @@ const DonorDashboard = async () => {
     const user = session?.user;
     if (!user?.id) return;
   
-  
     const donationRequests = await getMyDonationRequests(user.id);
-    const requests = donationRequests?.slice(0, 3);
+
+   const requests = Array.isArray(donationRequests)
+     ? donationRequests.slice(0, 3)
+     : [];
     return (
       <div>
         <div>

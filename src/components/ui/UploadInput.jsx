@@ -7,6 +7,7 @@ import Image from "next/image";
 export default function UploadInput({
   label = "Profile Picture",
   preview,
+  name,
   onChange,
   onRemove,
   error,
@@ -19,6 +20,7 @@ export default function UploadInput({
       <label className="text-sm font-semibold text-gray-700">{label}</label>
 
       <input
+        name={name}
         ref={inputRef}
         type="file"
         accept="image/*"

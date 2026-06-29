@@ -10,7 +10,7 @@ import toast from "react-hot-toast";
 import Link from "next/link";
 import { authClient } from "@/lib/auth-client";
 
-const RequestTable = ({ donationRequests }) => {
+const RequestTable = ({ donationRequests, onRefresh }) => {
   const router = useRouter();
   const { data: session } = authClient.useSession();
   const user = session?.user;
@@ -21,7 +21,11 @@ const RequestTable = ({ donationRequests }) => {
 
     const data = await updatePublicRequest(id, payload);
     if (data.modifiedCount > 0) {
-      router.refresh();
+      if (onRefresh) {
+        onRefresh();
+      } else {
+        router.refresh();
+      }
     }
   };
 
@@ -31,7 +35,11 @@ const RequestTable = ({ donationRequests }) => {
 
     if (data.deletedCount > 0) {
       toast.success("Donation request deleted successfully");
-      router.refresh();
+      if (onRefresh) {
+        onRefresh();
+      } else {
+        router.refresh();
+      }
     } else {
       toast.error("Failed to delete donation request");
     }
