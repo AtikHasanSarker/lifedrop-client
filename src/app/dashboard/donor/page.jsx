@@ -1,10 +1,23 @@
+import RequestTable from '@/components/dashboard/RequestTable';
 import StatsCard from '@/components/ui/StatsCard';
-import { Droplets, Heart, BadgePlus, CalendarDays } from "lucide-react";
+import { getMyDonationRequests } from '@/lib/actions/requests';
+import { auth } from '@/lib/auth';
+import { Button } from '@heroui/react';
+import { Droplets, Heart, BadgePlus, CalendarDays, Syringe } from "lucide-react";
+import { headers } from 'next/headers';
+import Link from 'next/link';
 
-const DonorDashboard = () => {
+const DonorDashboard = async () => {
+    const session = await auth.api.getSession({
+      headers: await headers(),
+    });
+    const user = session?.user;
+    if (!user?.id) return;
+  
+    const donationRequests = await getMyDonationRequests(user.id);
+    const requests = donationRequests?.slice(0, 3);
     return (
       <div>
-        
         <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
           <StatsCard
             title="Total Donations"
@@ -41,6 +54,29 @@ const DonorDashboard = () => {
             iconBg="bg-green-100"
             iconColor="text-green-500"
           />
+        </div>
+
+        <div className="mt-10 ">
+          {donationRequests?.length > 0 ? (
+            <RequestTable donationRequests={requests} />
+          ) : (
+            <div className="w-full rounded-3xl border-2 border-dashed border-gray-200 bg-gray-50 py-20 flex flex-col items-center justify-center">
+              <div className="mb-4 rounded-full bg-white p-4 shadow-sm">
+                <Syringe className="h-8 w-8 text-gray-400" />
+              </div>
+
+              <h3 className="text-2xl font-bold text-gray-400">
+                No Recent Requests
+              </h3>
+            </div>
+          )}
+          <div className='flex justify-center'>
+            <Link href={`/dashboard/${user.role}/my-requests`}>
+              <Button className="mt-10 h-14 rounded-2xl bg-red-600 hover:bg-red-700 px-10 text-sm font-bold uppercase tracking-wider text-white shadow-lg">
+                View All Requests
+              </Button>
+            </Link>
+          </div>
         </div>
       </div>
     );

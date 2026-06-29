@@ -48,7 +48,6 @@ const DonorCard = ({ item, index }) => {
         className="group relative overflow-hidden rounded-[30px] border border-gray-100 bg-white shadow-lg transition-all hover:shadow-2xl"
       >
         {/* Top */}
-
         <div className="relative h-28 bg-linear-to-r from-red-600 via-red-500 to-pink-500">
           {/* bloodGroup */}
           <div className="absolute right-6 top-6 rounded-full bg-white/20 px-5 py-2 backdrop-blur-lg">

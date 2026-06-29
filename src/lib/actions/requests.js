@@ -16,6 +16,11 @@ export const getMyDonationRequests = async (id) => {
   return res.json();
 }
 
+export const getFunding = async (id) => {
+  const res = await fetch(`${baseUrl}/funding`);
+  return res.json();
+}
+
 export const updateDonationRequest = async (id) => {
   const res = await fetch(`${baseUrl}/donation-requests/${id}`, {
     method: "PATCH",

@@ -42,7 +42,7 @@ const requests = [
 
 export default function EmergencyRequests() {
   return (
-    <section className="bg-[#FFFDFD] pt-24 pb-40">
+    <section className="bg-[#FFFDFD] pt-16 pb-40">
       <div className="container mx-auto px-6 lg:px-10">
         {/* Heading */}
 

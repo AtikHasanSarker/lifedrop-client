@@ -9,7 +9,6 @@ const MyDonationRequestsPage = async () => {
   });
   const user = session?.user;
   if (!user?.id) return;
-
   const donationRequests = await getMyDonationRequests(user.id);
 
   return (

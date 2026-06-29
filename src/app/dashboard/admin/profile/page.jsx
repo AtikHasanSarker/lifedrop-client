@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { Avatar, Button, Card, Chip, Separator } from "@heroui/react";
-
 import {
   Pencil,
   User,
@@ -36,9 +35,7 @@ export default function ProfilePage() {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const updatedData = Object.fromEntries(formData.entries());
-
     const data = await authClient.updateUser(updatedData);
-
     if (data) {
       toast.success("Profile updated successfully");
       router.refresh();

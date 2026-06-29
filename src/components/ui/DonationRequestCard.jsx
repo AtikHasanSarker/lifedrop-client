@@ -68,7 +68,6 @@ const DonationRequestCard = ({ item, index }) => {
             {status}
           </Chip>
 
-
           <div className="absolute bottom-0 left-8 translate-y-1/2">
             <div className="flex h-20 w-20 items-center justify-center rounded-full border-4 border-white bg-red-100">
               <Droplets size={34} className="text-red-600" />
@@ -97,14 +96,7 @@ const DonationRequestCard = ({ item, index }) => {
 
             <div className="flex items-center gap-3 text-gray-500">
               <CalendarDays size={18} className="text-red-500" />
-
-              {donationDate}
-            </div>
-
-            <div className="flex items-center gap-3 text-gray-500">
-              <Clock3 size={18} className="text-red-500" />
-
-              {donationTime}
+              {donationDate}, {donationTime}
             </div>
           </div>
 
