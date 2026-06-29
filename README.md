@@ -145,12 +145,11 @@ stripe
 - Dashboard
 ![alt text](image-3.png)
 - Search Donor
-
-
+![alt text](image-4.png)
 - Donation Details
 ![alt text](image-1.png)
 - Profile Page
-![alt text](image-2.png)
+![alt text](image-5.png)
 
 ---
 

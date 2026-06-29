@@ -201,7 +201,7 @@ const SearchPage = () => {
                       Select a blood group, district and upazila, then click Search Donors to discover verified blood donors near you.
                     </p>
 
-                    <div className="mt-5 inline-flex items-center gap-2 rounded-full bg-danger-50 px-6 py-3 text-danger font-semibold">
+                    <div className="mt-5 inline-flex justify-center items-center gap-2 rounded-full bg-danger-50 px-6 py-3 text-danger font-semibold">
                       ❤️ Every donation has the power to save a life.
                     </div>
                   </Card.Content>
