@@ -107,12 +107,12 @@ export default function RequestDetailsPage() {
             shadow="lg"
             className="bg-linear-to-br from-red-500 via-rose-500 to-red-600 text-white border-none"
           >
-            <Card.Content className="flex flex-row gap-3 h-full p-4 items-center">
-              <div className="w-16 h-16 rounded-2xl bg-white/20 flex items-center justify-center backdrop-blur">
-                <Droplets size={34} />
+            <Card.Content className="flex flex-row gap-3 h-full p-3 items-center">
+              <div className="w-12 h-12 rounded-2xl bg-white/20 flex items-center justify-center backdrop-blur">
+                <Droplets size={26} />
               </div>
               <div>
-                <h2 className="text-3xl font-black mt-3">
+                <h2 className="text-2xl font-black mt-3">
                   {request.bloodGroup}
                 </h2>
                 <p className="text-red-100 mt-2">Required Blood</p>
@@ -123,24 +123,21 @@ export default function RequestDetailsPage() {
           {/* Requester */}
 
           <Card shadow="lg" className="rounded-3xl">
-            <Card.Content className="p-4">
+            <Card.Content className="p-3">
               <div className="flex items-center gap-5">
-                <div className="w-20 h-20 rounded-3xl bg-red-50 flex items-center justify-center">
-                  <User size={38} className="text-red-600" />
+                <div className="w-12 h-12 rounded-2xl bg-red-50 flex items-center justify-center">
+                  <User size={26} className="text-red-600" />
                 </div>
 
                 <div>
                   <p className="text-default-500 uppercase tracking-widest text-xs">
                     Requester
                   </p>
-
-                  <h2 className="text-2xl font-bold mt-1">
+                  <h2 className="text-xl font-bold mt-1">
                     {request.requesterName}
                   </h2>
-
-                  <div className="flex items-center gap-2 mt-2">
+                  <div className="flex items-center text-xs gap-2 mt-2">
                     <Mail size={16} />
-
                     {request.requesterEmail}
                   </div>
                 </div>
@@ -151,10 +148,10 @@ export default function RequestDetailsPage() {
           {/* Hospital */}
 
           <Card shadow="lg" className="rounded-3xl">
-            <Card.Content className="p-4">
+            <Card.Content className="p-3">
               <div className="flex items-start gap-5">
-                <div className="w-16 h-16 rounded-2xl bg-red-50 flex items-center justify-center">
-                  <Hospital size={30} className="text-red-600" />
+                <div className="w-12 h-12 rounded-2xl bg-red-50 flex items-center justify-center">
+                  <Hospital size={26} className="text-red-600" />
                 </div>
 
                 <div className="flex-1">
@@ -162,7 +159,7 @@ export default function RequestDetailsPage() {
                     Hospital Information
                   </p>
 
-                  <h2 className="text-2xl font-bold mt-2">
+                  <h2 className="text-xl font-bold mt-2">
                     {request.hospitalName}
                   </h2>
 
@@ -178,8 +175,8 @@ export default function RequestDetailsPage() {
           {/* Location */}
 
           <Card shadow="lg" className="rounded-3xl">
-            <Card.Content className="p-6 h-full">
-              <div className="flex items-center gap-2 mb-2">
+            <Card.Content className="p-3 h-full">
+              <div className="flex items-center gap-3 mb-4">
                 <div className="w-12 h-12 rounded-2xl bg-red-50 flex items-center justify-center">
                   <MapPin className="text-red-600" size={24} />
                 </div>
@@ -213,7 +210,7 @@ export default function RequestDetailsPage() {
 
           {/* Date & Time */}
 
-          <div className="space-y-4">
+          <div className="flex flex-col gap-3 justify-between">
             <Card shadow="lg" className="rounded-3xl">
               <Card.Content className="p-1">
                 <div className="flex items-center gap-4">
@@ -277,7 +274,7 @@ export default function RequestDetailsPage() {
           {/* Request Message */}
 
           <Card shadow="lg" className="rounded-3xl border border-red-100">
-            <Card.Content className="p-6">
+            <Card.Content className="p-3">
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-12 h-12 rounded-2xl bg-red-50 flex items-center justify-center">
                   <Mail className="text-red-600" size={22} />
@@ -292,8 +289,8 @@ export default function RequestDetailsPage() {
                 </div>
               </div>
 
-              <div className="rounded-2xl bg-linear-to-r from-red-50 to-rose-50 border border-red-100 p-6">
-                <p className="italic text-default-700 leading-8 text-lg">
+              <div className="rounded-2xl bg-linear-to-r from-red-50 to-rose-50 border border-red-100 p-4">
+                <p className="italic text-default-700 leading-8">
                   {request.requestMessage}
                 </p>
               </div>
@@ -313,16 +310,17 @@ export default function RequestDetailsPage() {
 
 function InfoItem({ icon, label, value }) {
   return (
-    <div className="flex items-center justify-between gap-4 rounded-2xl border border-default-100 p-4 hover:bg-default-50 transition">
-      <div className="flex items-center gap-3">
+    <div className="flex items-start flex-col justify-between gap-1 rounded-2xl border border-default-100 p-3 hover:bg-default-50 transition">
+      <div className="flex items-center">
         <div className="w-10 h-10 rounded-xl bg-default-100 flex items-center justify-center">
           {icon}
         </div>
 
-        <span className="text-default-500">{label}</span>
+        <div className="flex flex-col gap-1">
+          <span className="text-xs">{label}</span>
+          <span className="font-semibold">{value}</span>
+        </div>
       </div>
-
-      <span className="font-semibold text-right">{value}</span>
     </div>
   );
 }

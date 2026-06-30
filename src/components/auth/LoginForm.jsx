@@ -24,21 +24,30 @@ import { authClient } from "@/lib/auth-client";
 export default function LoginForm() {
   const router = useRouter();
   const [isVisible, setIsVisible] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   
   const onSubmit = async (e) => {
     e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    const user = Object.fromEntries(formData.entries());
-    const { data, error } = await authClient.signIn.email({
-      email: user.email,
-      password: user.password,
-    });
+    if (isLoading) return;
 
-    if (error) {
-      toast.error("Login failed! Email or password is incorrect.");
-    } else {
-      toast.success("Login successful! Redirecting...");
-      router.push("/");
+    setIsLoading(true);
+
+    try {
+      const formData = new FormData(e.currentTarget);
+      const user = Object.fromEntries(formData.entries());
+      const { data, error } = await authClient.signIn.email({
+        email: user.email,
+        password: user.password,
+      });
+
+      if (error) {
+        toast.error("Login failed! Email or password is incorrect.");
+      } else {
+        toast.success("Login successful! Redirecting...");
+        router.push("/");
+      }
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -106,10 +115,12 @@ export default function LoginForm() {
         </p>
 
         <Button
-        type="submit"
+          type="submit"
           color="danger"
           radius="full"
           size="lg"
+          isLoading={isLoading}
+          isDisabled={isLoading}
           className="h-12 sm:h-13 lg:h-14 w-full bg-linear-to-r from-red-600 to-rose-500 text-sm sm:text-base font-semibold shadow-lg transition-all duration-300 hover:scale-[1.02] hover:shadow-red-300"
           endContent={<ArrowRight size={16} className="sm:size-[18px]" />}
         >

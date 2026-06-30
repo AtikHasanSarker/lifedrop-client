@@ -2,6 +2,7 @@
 import { districts, districtUpazilas } from "@/app/data/DistrictUpazilas";
 import Select from "@/components/ui/Select";
 import { authClient } from "@/lib/auth-client";
+import { Button, Spinner } from "@heroui/react";
 import {
   CalendarDays,
   Clock3,
@@ -18,33 +19,42 @@ import toast from "react-hot-toast";
 const DonationRequestForm = ({ user }) => {
   const router = useRouter();
   const [selectedDistrict, setSelectedDistrict] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    const { data: tokenData } = await authClient.token()
-    const requestData = Object.fromEntries(formData.entries());
-    requestData.userId = user?.id;
-    requestData.status = "pending";
+    if (isLoading) return;
 
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_SERVER_URL}/donation-requests`,
-      {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-           authorization: `Bearer ${tokenData?.token}`,
+    setIsLoading(true);
+
+    try {
+      const formData = new FormData(e.currentTarget);
+      const { data: tokenData } = await authClient.token();
+      const requestData = Object.fromEntries(formData.entries());
+      requestData.userId = user?.id;
+      requestData.status = "pending";
+
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/donation-requests`,
+        {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+            authorization: `Bearer ${tokenData?.token}`,
+          },
+          body: JSON.stringify(requestData),
         },
-        body: JSON.stringify(requestData),
-      },
-    );
-    const data = await res.json();
+      );
+      const data = await res.json();
 
-    if (data.acknowledged) {
-      toast.success("Request submitted successfully");
-      router.push("/dashboard/donor/my-requests");
-    } else {
-      toast.error("Failed to create Request");
+      if (data.acknowledged) {
+        toast.success("Request submitted successfully");
+        router.push("/dashboard/donor/my-requests");
+      } else {
+        toast.error("Failed to create Request");
+      }
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -401,12 +411,21 @@ const DonationRequestForm = ({ user }) => {
               request.
             </p>
 
-            <button
+            <Button
               type="submit"
-              className="rounded-2xl bg-linear-to-r from-red-600 to-rose-500 px-10 py-4 font-semibold text-white transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_40px_rgba(220,38,38,0.35)]"
+              isLoading={isLoading}
+              isDisabled={isLoading}
+              className="rounded-2xl bg-linear-to-r from-red-600 to-rose-500 h-14 font-semibold text-white transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_40px_rgba(220,38,38,0.35)]"
             >
-              ❤️ Create Donation Request
-            </button>
+              {isLoading ? (
+                <span>
+                  <Spinner color="danger" />
+                  Creating...
+                </span>
+              ) : (
+                "❤️ Create Donation Request"
+              )}
+            </Button>
           </div>
         </div>
       </form>

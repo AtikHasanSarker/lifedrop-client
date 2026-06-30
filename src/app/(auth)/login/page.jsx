@@ -36,7 +36,7 @@ export default function LoginPage() {
 
           {/* RIGHT */}
 
-          <div className="flex mx-auto w-full lg:justify-end">
+          <div className="flex mx-auto justify-center w-full lg:justify-end">
             <LoginForm />
           </div>
         </div>

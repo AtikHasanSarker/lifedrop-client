@@ -11,9 +11,11 @@ import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 import UploadInput from "../ui/UploadInput";
 import { imageUpload } from "@/lib/actions/imgUpload";
+import { Button } from "@heroui/react";
 
 export default function RegisterForm() {
   const [preview, setPreview] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleImage = (e) => {
     const file = e.target.files[0];
@@ -55,31 +57,38 @@ export default function RegisterForm() {
   
   const onSubmit = async (e) => {
     e.preventDefault();
-    if(password !== confirmPassword){
-      return
+    if (isLoading) return;
+    if (password !== confirmPassword) {
+      return;
     }
 
-    const formData = new FormData(e.currentTarget);
-    const user = Object.fromEntries(formData.entries());
-    const image = await imageUpload(user.image);
+    setIsLoading(true);
 
-    const { data, error } = await authClient.signUp.email({
-      name: user.name,
-      email: user.email,
-      password: user.password,
-      image: user.imageUrl,
-      image: image.url,
-      phone: user.phone,
-      bloodGroup: user.bloodGroup,
-      district: user.district,
-      upazila: user.upazila,
-    });
-      
-    if (error) {
-      toast.error("Registration failed! ");
-    } else {
-      toast.success("Registration successful!");
-      router.push("/");
+    try {
+      const formData = new FormData(e.currentTarget);
+      const user = Object.fromEntries(formData.entries());
+      const image = await imageUpload(user.image);
+
+      const { data, error } = await authClient.signUp.email({
+        name: user.name,
+        email: user.email,
+        password: user.password,
+        image: user.imageUrl,
+        image: image.url,
+        phone: user.phone,
+        bloodGroup: user.bloodGroup,
+        district: user.district,
+        upazila: user.upazila,
+      });
+
+      if (error) {
+        toast.error("Registration failed! ");
+      } else {
+        toast.success("Registration successful!");
+        router.push("/");
+      }
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -103,42 +112,46 @@ export default function RegisterForm() {
 
       <form onSubmit={onSubmit} className="mt-10 space-y-6">
         <UploadInput
-        name="image"
+          name="image"
           preview={preview}
           onChange={handleImage}
           onRemove={removeImage}
         />
 
-        <Input
-          required
-          label="Full Name"
-          name="name"
-          placeholder="Enter your full name"
-        />
+        <div className="grid gap-6 md:grid-cols-2">
+          <Input
+            required
+            label="Full Name"
+            name="name"
+            placeholder="Enter your full name"
+          />
 
-        <Input
-          required
-          label="Email Address"
-          type="email"
-          name="email"
-          placeholder="Enter your email"
-        />
+          <Input
+            required
+            label="Email Address"
+            type="email"
+            name="email"
+            placeholder="Enter your email"
+          />
+        </div>
 
-        <Input
-          required
-          label="Phone Number"
-          type="tel"
-          name="phone"
-          placeholder="Enter your phone number"
-        />
+        <div className="grid gap-6 md:grid-cols-2">
+          <Input
+            required
+            label="Phone Number"
+            type="tel"
+            name="phone"
+            placeholder="Enter your phone number"
+          />
 
-        <Select
-          required
-          label="Blood Group"
-          name="bloodGroup"
-          options={bloodGroups}
-          placeholder="Select Blood Group"
-        />
+          <Select
+            required
+            label="Blood Group"
+            name="bloodGroup"
+            options={bloodGroups}
+            placeholder="Select Blood Group"
+          />
+        </div>
 
         {/* District + Upazila */}
 
@@ -161,30 +174,34 @@ export default function RegisterForm() {
           />
         </div>
 
-        <PasswordInput
-          required
-          label="Password"
-          name="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <PasswordInput
-          required
-          label="Confirm Password"
-          name="confirmPassword"
-          value={confirmPassword}
-          onChange={handlePasswordChange}
-          error={error}
-        />
+        <div className="grid gap-6 md:grid-cols-2">
+          <PasswordInput
+            required
+            label="Password"
+            name="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <PasswordInput
+            required
+            label="Confirm Password"
+            name="confirmPassword"
+            value={confirmPassword}
+            onChange={handlePasswordChange}
+            error={error}
+          />
+        </div>
 
         {/* Button */}
 
-        <button
+        <Button
           type="submit"
-          className="w-full rounded-2xl bg-linear-to-r from-red-600 to-red-500 py-4 text-lg font-semibold text-white transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_40px_rgba(220,38,38,.35)]"
+          isLoading={isLoading}
+          isDisabled={isLoading}
+          className="w-full rounded-2xl bg-linear-to-r from-red-600 to-red-500 h-14 text-lg font-semibold text-white transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_40px_rgba(220,38,38,.35)]"
         >
           Create Account
-        </button>
+        </Button>
 
         {/* Login */}
 

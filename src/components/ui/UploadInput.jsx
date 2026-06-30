@@ -63,7 +63,7 @@ export default function UploadInput({
 
           <p className="mt-2 text-sm text-gray-500">PNG, JPG or JPEG</p>
 
-          <p className="text-xs text-gray-400">Maximum Size 5MB</p>
+          <p className="text-xs text-gray-400">Maximum Size 32MB</p>
         </button>
       ) : (
         <div className="rounded-3xl border border-gray-200 bg-white p-6 shadow-lg">

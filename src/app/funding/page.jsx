@@ -17,18 +17,22 @@ export default async function FundingPage() {
   const funds = await getFunding(token);
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-8">
-      <div className="flex flex-col items-center justify-between mb-6">
-        <div>
-          <h1 className="text-4xl md:text-5xl font-bold text-center">Funding <span className="text-red-600">History</span></h1>
-          <p className="text-default-500 max-w-xl mt-6 text-center">Support LifeDrop by donating. Your contribution helps fund blood donation activities and saves lives.</p>
+    <div className="mx-auto max-w-6xl px-3 py-6 sm:px-4 sm:py-8">
+      <div className="mb-6 flex flex-col items-center gap-4 sm:gap-6">
+        <div className="w-full">
+          <h1 className="text-center text-3xl font-bold sm:text-4xl md:text-5xl">
+            Funding <span className="text-red-600">History</span>
+          </h1>
+          <p className="mx-auto mt-4 max-w-xl text-center text-sm text-default-500 sm:mt-6 sm:text-base">
+            Support LifeDrop by donating. Your contribution helps fund blood donation activities and saves lives.
+          </p>
         </div>
 
-        <div className="mt-8 flex-end">
+        <div className="flex justify-center">
           <GiveFundModal />
         </div>
 
-        <div className="py-10">
+        <div className="w-full py-3 sm:py-10">
           <FundingTable funds={funds} />
         </div>
       </div>

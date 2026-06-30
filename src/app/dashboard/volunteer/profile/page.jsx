@@ -67,7 +67,7 @@ export default function ProfilePage() {
         <div className="absolute inset-0 bg-black/10"></div>
       </div>
 
-      <div className="max-w-6xl mx-auto px-6 -mt-28 pb-16">
+      <div className="max-w-6xl mx-auto px-6 -mt-30 pb-16">
         {/* Profile Card */}
 
         <Card shadow="lg" className="rounded-[30px] overflow-visible">
@@ -76,12 +76,12 @@ export default function ProfilePage() {
               {/* Left */}
 
               <div className="flex flex-col md:flex-row gap-8">
-                <Avatar className="w-40 h-40 text-large border-[6px] border-white shadow-xl">
+                <Avatar className="w-50 h-50 text-large border-[6px] mx-auto border-white shadow-xl">
                   <Avatar.Image alt={user?.name} src={user?.image} />
                 </Avatar>
 
                 <div>
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-start gap-3">
                     <h1 className="text-4xl font-black">{user?.name}</h1>
 
                     <Chip
@@ -154,7 +154,7 @@ export default function ProfilePage() {
         {/* Personal Information */}
 
         <Card shadow="lg" className="mt-6 rounded-[30px]">
-          <Card.Content className="p-6">
+          <Card.Content className="p-3 md:p-5">
             <div className="flex items-center gap-3 mb-4">
               <div className="w-12 h-12 rounded-2xl bg-red-50 flex items-center justify-center">
                 <User size={24} className="text-red-600" />
@@ -252,8 +252,8 @@ export default function ProfilePage() {
         {/* Account Summary */}
 
         <Card shadow="lg" className="rounded-[30px] mt-6">
-          <Card.Content className="p-6">
-            <div className="flex items-center justify-between">
+          <Card.Content className="p-3 md:p-5">
+            <div className="flex items-start justify-between">
               <div>
                 <h3 className="text-2xl font-bold">Account Summary</h3>
 

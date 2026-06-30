@@ -165,14 +165,14 @@ export function DashboardSidebar() {
 
   return (
     <>
-      <aside className="hidden lg:flex w-55 shrink-0 border-r flex-col h-full">
+      <aside className="hidden lg:flex w-60 shrink-0 border-r flex-col h-full">
         <div className="border-b p-4 border-gray-500">
           <Image src="/nav-logo.png" alt="logo" width={150} height={150} />
         </div>
         {navContent}
       </aside>
       <Drawer>
-        <Button variant="secondary" className="lg:hidden fixed top-4 left-3 z-20 p-1">
+        <Button variant="secondary" className="lg:hidden fixed top-4 left-3 z-20 px-3">
           <LayoutSideContentLeft />
         </Button>
         <Drawer.Backdrop>

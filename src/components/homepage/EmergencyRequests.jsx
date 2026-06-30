@@ -119,7 +119,7 @@ useEffect(() => {
                 </div>
 
                 <Link
-                  href={`/donation-request/${item._id}`}
+                  href={`/donation-requests/${item._id}`}
                   className="mt-8 inline-flex items-center gap-2 font-semibold text-red-600 transition group-hover:gap-3"
                 >
                   View Details
