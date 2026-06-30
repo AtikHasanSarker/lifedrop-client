@@ -16,10 +16,11 @@ import {
   ArrowLeft,
   Phone,
 } from "lucide-react";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function RequestDetailsPage() {
+  const router = useRouter();
   const { id } = useParams();
   const [request, setRequest] = useState(null);
   
@@ -46,7 +47,6 @@ export default function RequestDetailsPage() {
     return <Loading />;
   }
 
-  console.log(request);
 
   const statusColor = {
     pending: "warning",
@@ -55,7 +55,6 @@ export default function RequestDetailsPage() {
     canceled: "danger",
   };
 
-  console.log(request.status);
 
   return (
     <section className="min-h-screen bg-linear-to-b from-rose-50 via-white to-slate-50">
@@ -65,7 +64,11 @@ export default function RequestDetailsPage() {
         <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10"></div>
 
         <div className="relative max-w-7xl mx-auto px-6 py-14">
-          <Button variant="light" className="text-white mb-8">
+          <Button
+            onClick={() => router.back()}
+            variant="light"
+            className="text-white mb-8"
+          >
             <ArrowLeft size={18} />
             Back
           </Button>

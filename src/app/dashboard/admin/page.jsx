@@ -1,49 +1,62 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Card, Chip, Spinner } from "@heroui/react";
-import { Droplets, DollarSign, Users, TrendingUp } from "lucide-react";
+import { Button, Card, Chip, Spinner } from "@heroui/react";
+import { Droplets, DollarSign, Users, TrendingUp, Syringe } from "lucide-react";
 import { authClient } from "@/lib/auth-client";
+import RequestTable from "@/components/dashboard/RequestTable";
+import Link from "next/link";
+import { getMyDonationRequests } from "@/lib/actions/requests";
 
 export default function AdminDashboard() {
-  
+  const [myRequests, setMyRequests] = useState([]);
+  console.log(myRequests);
   const [stats, setStats] = useState({
-  donors: 0,
-  requests: 0,
-  totalFunding: 0,
+    donors: 0,
+    requests: 0,
+    totalFunding: 0,
   });
   const [loading, setLoading] = useState(true);
   const { data: session } = authClient.useSession();
-  
   const user = session?.user;
+  
   const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL;
 
   useEffect(() => {
+    if (!user?.id) return;
     async function loadData() {
       try {
         const { data: tokenData } = await authClient.token();
+        if (!tokenData) return;
         const headers = {
           Authorization: `Bearer ${tokenData.token}`,
         };
         const res = await fetch(`${baseUrl}/dashboard-stats`, {
-          headers
+          headers,
         });
+        const donationRequests = await getMyDonationRequests(user.id);
+
+        const requests = Array.isArray(donationRequests)
+          ? donationRequests.slice(0, 3)
+          : [];
 
         const stats = await res.json();
+        setMyRequests(requests);
 
         setStats({
           donors: stats.totalDonors,
           requests: stats.totalRequests,
           totalFunding: stats.totalFunding,
         });
-
+      } catch (err) {
+        console.error("error fetching stats");
       } finally {
         setLoading(false);
       }
     }
 
     loadData();
-  }, []);
+  }, [user, baseUrl]);
 
   const cards = [
     {
@@ -117,6 +130,29 @@ export default function AdminDashboard() {
             </Card.Content>
           </Card>
         ))}
+      </div>
+
+      <div className="mt-10 min-h-screen">
+        {myRequests?.length > 0 ? (
+          <RequestTable donationRequests={myRequests} />
+        ) : (
+          <div className="w-full rounded-3xl border-2 border-dashed border-gray-200 bg-gray-50 py-20 flex flex-col items-center justify-center">
+            <div className="mb-4 rounded-full bg-white p-4 shadow-sm">
+              <Syringe className="h-8 w-8 text-gray-400" />
+            </div>
+
+            <h3 className="text-2xl font-bold text-gray-400">
+              No Recent Requests
+            </h3>
+          </div>
+        )}
+        <div className="flex justify-center">
+          <Link href={`/dashboard/${user?.role}/my-requests`}>
+            <Button className="mt-10 h-14 rounded-2xl bg-red-600 hover:bg-red-700 px-10 text-sm font-bold uppercase tracking-wider text-white shadow-lg">
+              <Droplets /> View All Requests
+            </Button>
+          </Link>
+        </div>
       </div>
     </section>
   );
