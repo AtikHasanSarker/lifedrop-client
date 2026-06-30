@@ -9,11 +9,18 @@ export async function proxy(request) {
   const user = session?.user;
   const pathname = request.nextUrl.pathname;
 
+  // Login থাকা অবস্থায় login/register এ গেলে dashboard এ পাঠাবে
+  if (user && (pathname === "/login" || pathname === "/signup")) {
+    return NextResponse.redirect(
+      new URL(`/dashboard/${user.role}`, request.url),
+    );
+  }
+
   // Public Routes
   const publicRoutes = [
     "/",
     "/login",
-    "/register",
+    "/signup",
     "/search",
     "/donation-requests",
   ];
@@ -26,11 +33,6 @@ export async function proxy(request) {
   // Login না থাকলে
   if (!user) {
     return NextResponse.redirect(new URL("/login", request.url));
-  }
-
-  // Login থাকা অবস্থায় login/register এ গেলে dashboard এ পাঠাবে
-  if (pathname === "/login" || pathname === "/register") {
-    return NextResponse.redirect(new URL(`/dashboard/${user.role}`, request.url));
   }
 
   // Admin Route
@@ -61,5 +63,5 @@ export async function proxy(request) {
 }
 
 export const config = {
-  matcher: ["/dashboard/:path*", "/login", "/register", "/donation-requests/:path*"],
+  matcher: ["/dashboard/:path*", "/login", "/signup", "/donation-requests/:path*"],
 };
