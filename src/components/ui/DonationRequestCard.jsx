@@ -3,7 +3,6 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import {
   CalendarDays,
-  Clock3,
   Droplets,
   MapPin,
   ArrowRight,
@@ -33,23 +32,20 @@ const DonationRequestCard = ({ item, index }) => {
     <div>
       <motion.div
         initial={{
-          opacity: 0,
-          y: 40,
+          opacity: 0
         }}
         whileInView={{
           opacity: 1,
-          y: 0,
         }}
         viewport={{
           once: true,
+          amount: 0.2,
         }}
         transition={{
-          delay: index * 0.2,
+          duration: 1,
+          damping: 15,
         }}
-        whileHover={{
-          y: -10,
-        }}
-        className="group relative overflow-hidden rounded-[30px] border border-gray-100 bg-white shadow-lg transition-all hover:shadow-2xl"
+        className="group relative overflow-hidden rounded-[30px] border border-gray-100 bg-white shadow-lg transition-all hover:shadow-2xl hover:-translate-y-2 duration-300"
       >
         {/* Top */}
 

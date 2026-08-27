@@ -27,7 +27,7 @@ useEffect(() => {
 
   return (
     <section className="bg-[#FFFDFD] pt-16 pb-40">
-      <div className="container mx-auto px-6 lg:px-10">
+      <div className="container mx-auto px-6">
         {/* Heading */}
 
         <div className="mx-auto max-w-3xl text-center">
@@ -42,7 +42,7 @@ useEffect(() => {
 
           <p className="mt-5 text-lg text-gray-500">
             Every minute matters. Respond to urgent blood requests and become
-            someone's hero today.
+            someone&apos;s hero today.
           </p>
         </div>
 
@@ -64,12 +64,9 @@ useEffect(() => {
                 once: true,
               }}
               transition={{
-                delay: index * 0.2,
+                delay: index * 0.1,
               }}
-              whileHover={{
-                y: -10,
-              }}
-              className="group relative overflow-hidden rounded-[30px] border border-gray-100 bg-white shadow-lg transition-all hover:shadow-2xl"
+              className="group relative overflow-hidden rounded-[30px] border border-gray-100 bg-white shadow-lg transition-all hover:shadow-2xl hover:-translate-y-2 duration-300"
             >
               {/* Top */}
 

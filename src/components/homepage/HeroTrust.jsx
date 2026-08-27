@@ -28,7 +28,7 @@ const items = [
 export default function HeroTrust() {
   return (
     <section className="relative -mt-16 z-20 bg-white">
-      <div className="container mx-auto px-6 lg:px-10">
+      <div className="container mx-auto px-6">
         <div className="grid gap-6 rounded-[32px] border border-red-100 bg-white p-8 shadow-2xl md:grid-cols-2 xl:grid-cols-4">
           {items.map((item, index) => {
             const Icon = item.icon;

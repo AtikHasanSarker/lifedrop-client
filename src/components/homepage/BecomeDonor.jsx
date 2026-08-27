@@ -15,9 +15,9 @@ export default function BecomeDonor() {
       <div className="absolute -right-24 bottom-0 h-80 w-80 rounded-full bg-white/10 blur-3xl" />
 
       {/* Pattern */}
-      <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle,#ffffff_1px,transparent_1px)] [background-size:30px_30px]" />
+      <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle,#ffffff_1px,transparent_1px)] [bg-size:30px_30px]" />
 
-      <div className="relative container mx-auto px-6 lg:px-10">
+      <div className="relative container mx-auto px-6">
         <div className="grid items-center gap-14 lg:grid-cols-2">
           {/* LEFT */}
           <motion.div
@@ -70,7 +70,7 @@ export default function BecomeDonor() {
             className="relative flex justify-center"
           >
             {/* Circle */}
-            <div className="absolute h-[420px] w-[420px] rounded-full bg-white/10 blur-2xl" />
+            <div className="absolute h-105 w-105 rounded-full bg-white/10 blur-2xl" />
 
             {/* Main Icon */}
             <div className="relative flex h-64 w-64 items-center justify-center rounded-full border border-white/20 bg-white/10 backdrop-blur-xl">

@@ -33,7 +33,7 @@ const stats = [
 export default function Statistics() {
   return (
     <section className="pt-40 pb-20 bg-[#FFFDFD]">
-      <div className="container mx-auto px-6 lg:px-10">
+      <div className="container mx-auto px-6">
         {/* Heading */}
         <div className="text-center max-w-3xl mx-auto">
           <span className="rounded-full bg-red-50 px-4 py-2 text-sm font-semibold text-red-600">

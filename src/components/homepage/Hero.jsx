@@ -9,17 +9,17 @@ export default function Hero() {
   return (
     <section className="relative overflow-hidden bg-white md:pb-20">
       {/* Background Blur */}
-      <div className="absolute -left-44 -top-44 h-[420px] w-[420px] rounded-full bg-red-100 blur-3xl opacity-70" />
-      <div className="absolute bottom-0 right-0 h-[400px] w-[400px] rounded-full bg-rose-100 blur-3xl opacity-70" />
+      <div className="absolute -left-44 -top-44 h-105 w-105 rounded-full bg-red-100 blur-3xl opacity-70" />
+      <div className="absolute bottom-0 right-0 h-100 w-100 rounded-full bg-rose-100 blur-3xl opacity-70" />
       {/* Floating Blur */}
       <div className="absolute left-20 top-40 h-40 w-40 rounded-full bg-red-200 opacity-40 blur-3xl" />
 
       <div className="absolute right-20 bottom-32 h-52 w-52 rounded-full bg-pink-200 opacity-40 blur-3xl" />
 
       {/* Pattern */}
-      <div className="absolute inset-0 opacity-[0.03] bg-[radial-linear(circle,#dc2626_1px,transparent_1px)] [background-size:32px_32px]" />
+      <div className="absolute inset-0 opacity-[0.03] bg-[radial-linear(circle,#dc2626_1px,transparent_1px)] [bg-size:32px_32px]" />
 
-      <div className="container mx-auto px-6 lg:px-10">
+      <div className="container mx-auto px-6">
         <div className="grid min-h-[90vh] items-center gap-16 lg:grid-cols-2">
           {/* LEFT */}
           <motion.div
@@ -38,11 +38,11 @@ export default function Hero() {
             <h1 className="text-4xl font-extrabold leading-tight text-gray-900 md:text-5xl">
               Donate Blood.
               <br />
-              <span className="bg-gradient-to-r from-red-700 via-red-500 to-pink-500 bg-clip-text text-transparent">
+              <span className="bg-linear-to-r from-red-700 via-red-500 to-pink-500 bg-clip-text text-transparent">
                 Save Lives.
               </span>
               <br />
-              Be Someone's Hero.
+              Be Someone&apos;s Hero.
             </h1>
 
             {/* Description */}
@@ -83,7 +83,7 @@ export default function Hero() {
             className="relative flex justify-center"
           >
             {/* Circle */}
-            <div className="absolute h-[520px] w-[520px] rounded-full bg-linear-to-br from-red-100 via-red-50 to-white" />
+            <div className="absolute h-130 w-130 rounded-full bg-linear-to-br from-red-100 via-red-50 to-white" />
 
             {/* Image */}
             <Image
@@ -92,7 +92,7 @@ export default function Hero() {
               width={700}
               height={700}
               priority
-              className="relative z-10 w-full rounded-3xl max-w-[620px] drop-shadow-[0_35px_35px_rgba(220,38,38,0.15)]"
+              className="relative z-10 w-full rounded-3xl max-w-155 drop-shadow-[0_35px_35px_rgba(220,38,38,0.15)]"
             />
             {/* Floating Card 1 */}
             <motion.div

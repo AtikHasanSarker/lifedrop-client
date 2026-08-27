@@ -146,7 +146,7 @@ const SearchPage = () => {
                     <Spinner size="lg" color="danger" />
                   </div>
                 ) : searchResults.length > 0 ? (
-                  <div className="container mx-auto px-6 lg:px-10">
+                  <div className="container mx-auto px-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                       {searchResults.map((item, index) => (
                         <DonorCard key={item._id} item={item} index={index} />

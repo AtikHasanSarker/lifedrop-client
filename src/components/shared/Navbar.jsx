@@ -75,7 +75,7 @@ const Navbar = () => {
             </svg>
           </button>
           <Link href={"/"}>
-            <div className="hover:bg-zinc-200 p-2">
+            <div className="p-2">
               <Image
                 height={100}
                 width={150}
@@ -194,7 +194,7 @@ const Navbar = () => {
         )}
       </header>
 
-        {/* For mobile devices */}
+      {/* For mobile devices */}
       {isMenuOpen && (
         <div className="border-t border-separator md:hidden">
           <ul className="flex flex-col gap-2 p-4">
@@ -213,21 +213,23 @@ const Navbar = () => {
                 </Link>
               </li>
             ))}
-            {authItems.map((item) => (
-              <li key={item.title}>
-                <Link
-                  href={item.href}
-                  onClick={() => setIsMenuOpen(!isMenuOpen)}
-                  className={`flex gap-2 items-center font-semibold transition-colors hover:text-red-700 ${
-                    pathName === item.href ? "text-red-600" : ""
-                  }`}
-                >
-                  {" "}
-                  {<item.icon />}
-                  {item.title}
-                </Link>
-              </li>
-            ))}
+
+            {user &&
+              authItems.map((item) => (
+                <li key={item.title}>
+                  <Link
+                    href={item.href}
+                    onClick={() => setIsMenuOpen(!isMenuOpen)}
+                    className={`flex gap-2 items-center font-semibold transition-colors hover:text-red-700 ${
+                      pathName === item.href ? "text-red-600" : ""
+                    }`}
+                  >
+                    {" "}
+                    {<item.icon />}
+                    {item.title}
+                  </Link>
+                </li>
+              ))}
           </ul>
         </div>
       )}
