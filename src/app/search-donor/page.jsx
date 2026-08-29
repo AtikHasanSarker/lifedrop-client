@@ -154,7 +154,7 @@ const SearchPage = () => {
                     </div>
                   </div>
                 ) : (
-                  <div className="max-w-5xl w-full mx-auto flex flex-col items-center justify-center rounded-3xl border border-dashed border-danger-200 bg-gradient-to-br from-red-50 to-white px-6 py-10 mt-4 text-center">
+                  <div className="max-w-5xl w-full mx-auto flex flex-col items-center justify-center rounded-3xl border border-dashed border-danger-200 bg-linear-to-br from-red-50 to-white px-6 py-10 mt-4 text-center">
                     <div className="flex h-20 w-20 items-center justify-center rounded-full bg-danger-100">
                       <span className="text-4xl">🩸</span>
                     </div>
@@ -164,7 +164,7 @@ const SearchPage = () => {
                     </h2>
 
                     <p className="mt-3 max-w-2xl text-gray-500 leading-7">
-                      We couldn't find any donors matching your search criteria.
+                      We couldn&apos;t find any donors matching your search criteria.
                       Try changing the blood group or selecting another district
                       or upazila.
                     </p>
@@ -179,7 +179,7 @@ const SearchPage = () => {
               <section className="max-w-5xl mx-auto px-4 py-10">
                 <Card
                   shadow="sm"
-                  className="rounded-[36px] border-2 border-dashed border-danger-100 bg-gradient-to-br from-red-50 via-white to-white"
+                  className="rounded-[36px] border-2 border-dashed border-danger-100 bg-linear-to-br from-red-50 via-white to-white"
                 >
                   <Card.Content className="py-10 text-center">
                     <div className="relative mx-auto w-fit">

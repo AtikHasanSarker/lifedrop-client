@@ -4,19 +4,19 @@ import { Droplets } from "lucide-react";
 
 export default function Loading() {
   return (
-    <div className="fixed inset-0 z-[9999] flex items-center justify-center overflow-hidden bg-gradient-to-br from-red-50 via-white to-rose-100">
+    <div className="fixed inset-0 z-9999 flex items-center justify-center overflow-hidden bg-linear-to-br from-red-50 via-white to-rose-100">
       {/* Background Blur */}
 
       <div className="absolute -left-32 -top-32 h-80 w-80 rounded-full bg-red-300/20 blur-3xl animate-pulse" />
       <div className="absolute -right-24 bottom-0 h-72 w-72 rounded-full bg-pink-300/20 blur-3xl animate-pulse" />
 
-      <div className="relative flex w-[360px] flex-col items-center">
+      <div className="relative flex w-90 flex-col items-center">
         {/* Logo */}
 
         <div className="relative">
           <div className="absolute inset-0 animate-ping rounded-full bg-red-300 opacity-30"></div>
 
-          <div className="relative flex h-24 w-24 items-center justify-center rounded-full bg-gradient-to-br from-red-500 to-rose-600 shadow-2xl shadow-red-400/30">
+          <div className="relative flex h-24 w-24 items-center justify-center rounded-full bg-linear-to-br from-red-500 to-rose-600 shadow-2xl shadow-red-400/30">
             <Droplets size={42} className="animate-bounce text-white" />
           </div>
         </div>
@@ -35,7 +35,7 @@ export default function Loading() {
         {/* Progress */}
 
         <div className="mt-10 h-3 w-full overflow-hidden rounded-full bg-red-100">
-          <div className="loading-bar h-full rounded-full bg-gradient-to-r from-red-500 via-rose-500 to-red-600"></div>
+          <div className="loading-bar h-full rounded-full bg-linear-to-r from-red-500 via-rose-500 to-red-600"></div>
         </div>
 
         <p className="mt-5 text-sm font-medium text-gray-400">
